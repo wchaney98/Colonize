@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicNode : MonoBehaviour, INode
 {
+    public Vector3 Position { get; set; }
     public int Level { get; set; }
 
     public int Life { get; set; }
@@ -14,7 +15,7 @@ public class BasicNode : MonoBehaviour, INode
     private int DecayCounter = 0;
     private int FramesPerDecay = 60;
 
-    public List<INode> ConnectedNodes { get; set; } 
+    public List<INode> ConnectedNodes { get; set; }
 
     private TextMesh textMesh;
 
@@ -65,6 +66,11 @@ public class BasicNode : MonoBehaviour, INode
         }
     }
 
+    private void Awake()
+    {
+        ConnectedNodes = new List<INode>();
+    }
+
     void Start ()
     {
         textMesh = transform.GetChild(0).GetComponent<TextMesh>();
@@ -72,7 +78,6 @@ public class BasicNode : MonoBehaviour, INode
         Life = 100;
         MaxLife = 100;
         DecaySpeed = 1;
-        ConnectedNodes = new List<INode>();
 	}
 	
 	void Update ()

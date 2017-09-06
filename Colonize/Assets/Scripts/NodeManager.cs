@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NodeManager 
 {
-    private List<INode> Nodes { get; set; }
+    public List<INode> Nodes { get; set; }
 
     public NodeManager()
     {

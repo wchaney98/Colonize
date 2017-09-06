@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour 
 {
+    public Material lineMat;
+
     private GameObject basicNodePrefab;
 
     private NodeManager nodeManager;
@@ -12,7 +14,11 @@ public class GameManager : MonoBehaviour
 	void Start () 
 	{
         nodeManager = new NodeManager();
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        gameObject.AddComponent<LineRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.sortingOrder = 5;
+        lineRenderer.SetWidth(0.5f, 0.5f);
+        lineRenderer.useWorldSpace = true;
 
         basicNodePrefab = Resources.Load("Prefabs/BasicNode") as GameObject;
         Debug.Log(basicNodePrefab);
@@ -42,6 +48,28 @@ public class GameManager : MonoBehaviour
 	
 	void Update () 
 	{
-		
+        nodeManager.DrawConnections(lineRenderer);
 	}
+
+    private void OnPostRender()
+    {
+        Debug.Log("postrender");
+        GL.PushMatrix();
+        lineMat.SetPass(0);
+        GL.LoadOrtho();
+        GL.Begin(GL.LINES);
+        GL.Color(Color.white);
+        foreach (INode baseNode in nodeManager.Nodes)
+        {
+            foreach (INode connectedNode in baseNode.ConnectedNodes)
+            {
+                GL.Vertex(baseNode.Position);
+                GL.Vertex(connectedNode.Position);
+            }
+        }
+        GL.Vertex(new Vector3(-3f, 1f));
+        GL.Vertex(new Vector3(3f, -1f));
+        GL.End();
+        GL.PopMatrix();
+    }
 }

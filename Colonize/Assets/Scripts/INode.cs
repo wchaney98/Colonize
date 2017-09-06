@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface INode
 {
-
+    Vector3 Position { get; set; }
     int Level { get; set; }
     int Life { get; set; }
     int MaxLife { get; set; }
