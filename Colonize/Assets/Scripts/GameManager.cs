@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    FREE,
+    CONNECTING
+}
+
 public class GameManager : MonoBehaviour 
 {
     public Material lineMat;
+
+    public PlayerState PlayerState { get; set; }
+    public INode SelectedNode { get; set; }
 
     private GameObject basicNodePrefab;
 
@@ -13,7 +22,8 @@ public class GameManager : MonoBehaviour
 
 	void Start () 
 	{
-        nodeManager = new NodeManager();
+        nodeManager = new NodeManager(this);
+        PlayerState = PlayerState.FREE;
 
         basicNodePrefab = Resources.Load("Prefabs/BasicNode") as GameObject;
         Debug.Log(basicNodePrefab);
@@ -31,17 +41,11 @@ public class GameManager : MonoBehaviour
         nodeManager.AddNode(testBN1class);
         nodeManager.AddNode(testBN2class);
         nodeManager.AddNode(testBN3class);
-
-        testBN0class.ConnectTo(testBN1class);
-        testBN0class.ConnectTo(testBN2class);
-        testBN2class.ConnectTo(testBN0class);
-
-        nodeManager.DrawConnections(lineRenderer);
 	}
 	
 	void Update () 
 	{
-        nodeManager.DrawConnections(lineRenderer);
+
 	}
 
     private void OnPostRender()

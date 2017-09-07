@@ -23,13 +23,27 @@ public class BasicNode : MonoBehaviour, INode
 
     void OnMouseDown()
     {
-        SetNodeMenu();
-    }
-
-    private void SetNodeMenu()
-    {
-        Debug.Log(nodeMenu);
-        nodeMenu.ActivateForNode(this);
+        if (nodeMenu.GameManager.PlayerState == PlayerState.FREE)
+        {
+            nodeMenu.GameManager.SelectedNode = this;
+            nodeMenu.ActivateForNode(this);
+        }
+        else if (nodeMenu.GameManager.PlayerState == PlayerState.CONNECTING)
+        {
+            if (nodeMenu.GameManager.SelectedNode as Object != this)
+            {
+                nodeMenu.GameManager.SelectedNode.ConnectTo(this);
+                nodeMenu.GameManager.PlayerState = PlayerState.FREE;
+                nodeMenu.GameManager.SelectedNode = null;
+                nodeMenu.DeActivate();
+            }
+            else
+            {
+                nodeMenu.GameManager.SelectedNode = null;
+                nodeMenu.GameManager.PlayerState = PlayerState.FREE;
+                nodeMenu.DeActivate();
+            }
+        }
     }
 
     private void OnMouseOver()
@@ -119,6 +133,14 @@ public class BasicNode : MonoBehaviour, INode
         if (Life <= 0)
         {
             DestroyObject(gameObject);
+        }
+
+        if (nodeMenu.GameManager.SelectedNode as Object == this)
+        {
+            spriteRenderer.color = new Color(1f, 1f, 0.2f, 1f);
+        } else
+        {
+            spriteRenderer.color = Color.white;
         }
 	}
 }

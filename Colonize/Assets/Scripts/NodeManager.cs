@@ -5,25 +5,16 @@ using UnityEngine;
 public class NodeManager 
 {
     public List<INode> Nodes { get; set; }
+    public GameManager gm { get; set; }
 
-    public NodeManager()
+    public NodeManager(GameManager gm)
     {
         Nodes = new List<INode>();
+        this.gm = gm;
     }
 
     public void AddNode(INode node)
     {
         Nodes.Add(node);
-    }
-
-    public void DrawConnections(LineRenderer lr)
-    {
-        foreach (INode baseNode in Nodes)
-        {
-            foreach (INode connectedNode in baseNode.ConnectedNodes)
-            {
-                
-            }
-        }
     }
 }
