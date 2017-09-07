@@ -18,10 +18,28 @@ public class BasicNode : MonoBehaviour, INode
     public List<INode> ConnectedNodes { get; set; }
 
     private TextMesh textMesh;
+    private SpriteRenderer spriteRenderer;
+    private NodeMenu nodeMenu;
 
     void OnMouseDown()
     {
-        Debug.Log("click");
+        SetNodeMenu();
+    }
+
+    private void SetNodeMenu()
+    {
+        Debug.Log(nodeMenu);
+        nodeMenu.ActivateForNode(this);
+    }
+
+    private void OnMouseOver()
+    {
+        spriteRenderer.color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
+    }
+
+    private void OnMouseExit()
+    {
+        spriteRenderer.color = Color.white;
     }
 
     public void ConnectTo(INode otherNode)
@@ -80,10 +98,12 @@ public class BasicNode : MonoBehaviour, INode
     {
         Position = transform.position;
         textMesh = transform.GetChild(0).GetComponent<TextMesh>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         Level = 1;
         Life = 100;
         MaxLife = 100;
         DecaySpeed = 1;
+        nodeMenu = Resources.FindObjectsOfTypeAll<NodeMenu>()[0];
 	}
 	
 	void Update ()
