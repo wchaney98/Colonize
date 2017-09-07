@@ -19,6 +19,11 @@ public class BasicNode : MonoBehaviour, INode
 
     private TextMesh textMesh;
 
+    void OnMouseDown()
+    {
+        Debug.Log("click");
+    }
+
     public void ConnectTo(INode otherNode)
     {
         if (!ConnectedNodes.Contains(otherNode))
@@ -73,6 +78,7 @@ public class BasicNode : MonoBehaviour, INode
 
     void Start ()
     {
+        Position = transform.position;
         textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         Level = 1;
         Life = 100;
@@ -84,15 +90,10 @@ public class BasicNode : MonoBehaviour, INode
     {
         textMesh.text = Mathf.Floor((((float)Life / MaxLife) * 100)).ToString() + "%";
         DecayCounter++;
-        if (DecayCounter >= FramesPerDecay)
+        if (DecayCounter >= FramesPerDecay * (ConnectedNodes.Count + 1))
         {
             Life -= DecaySpeed;
             DecayCounter = 0;
-        }
-
-        foreach (INode node in ConnectedNodes)
-        {
-            // TODO: Connected node benefits
         }
             
         if (Life <= 0)

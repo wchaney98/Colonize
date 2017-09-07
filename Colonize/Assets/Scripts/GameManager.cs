@@ -14,11 +14,6 @@ public class GameManager : MonoBehaviour
 	void Start () 
 	{
         nodeManager = new NodeManager();
-        gameObject.AddComponent<LineRenderer>();
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.sortingOrder = 5;
-        lineRenderer.SetWidth(0.5f, 0.5f);
-        lineRenderer.useWorldSpace = true;
 
         basicNodePrefab = Resources.Load("Prefabs/BasicNode") as GameObject;
         Debug.Log(basicNodePrefab);
@@ -39,9 +34,7 @@ public class GameManager : MonoBehaviour
 
         testBN0class.ConnectTo(testBN1class);
         testBN0class.ConnectTo(testBN2class);
-        testBN0class.DisconnectFrom(testBN1class);
-        testBN2class.ConnectTo(testBN1class);
-        testBN2class.DisconnectFrom(testBN0class);
+        testBN2class.ConnectTo(testBN0class);
 
         nodeManager.DrawConnections(lineRenderer);
 	}
@@ -53,7 +46,6 @@ public class GameManager : MonoBehaviour
 
     private void OnPostRender()
     {
-        Debug.Log("postrender");
         GL.PushMatrix();
         lineMat.SetPass(0);
         GL.LoadOrtho();
@@ -61,14 +53,15 @@ public class GameManager : MonoBehaviour
         GL.Color(Color.white);
         foreach (INode baseNode in nodeManager.Nodes)
         {
+            Vector3 baseNodePos = Camera.current.WorldToScreenPoint(baseNode.Position);
             foreach (INode connectedNode in baseNode.ConnectedNodes)
             {
-                GL.Vertex(baseNode.Position);
-                GL.Vertex(connectedNode.Position);
+                Vector3 connectedNodePos = Camera.current.WorldToScreenPoint(connectedNode.Position);
+
+                GL.Vertex(new Vector3(baseNodePos.x / Screen.width, baseNodePos.y / Screen.height));
+                GL.Vertex(new Vector3(connectedNodePos.x / Screen.width, connectedNodePos.y / Screen.height));
             }
         }
-        GL.Vertex(new Vector3(-3f, 1f));
-        GL.Vertex(new Vector3(3f, -1f));
         GL.End();
         GL.PopMatrix();
     }

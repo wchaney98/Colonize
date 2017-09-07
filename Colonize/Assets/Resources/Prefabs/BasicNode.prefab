@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4094399508721496}
   - component: {fileID: 212506602933642288}
   - component: {fileID: 114268267097017106}
+  - component: {fileID: 58597466353573074}
   m_Layer: 0
   m_Name: BasicNode
   m_TagString: Untagged
@@ -104,6 +105,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!58 &58597466353573074
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216474240183148}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.36
 --- !u!102 &102661226610668430
 TextMesh:
   serializedVersion: 3
