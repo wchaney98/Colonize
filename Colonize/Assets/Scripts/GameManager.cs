@@ -5,7 +5,8 @@ using UnityEngine;
 public enum PlayerState
 {
     FREE,
-    CONNECTING
+    CONNECTING,
+    MOVING
 }
 
 public class GameManager : MonoBehaviour 
@@ -45,7 +46,12 @@ public class GameManager : MonoBehaviour
 	
 	void Update () 
 	{
-
+        if (PlayerState == PlayerState.MOVING && Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Attempting move");
+            SelectedNode.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            PlayerState = PlayerState.FREE;
+        }
 	}
 
     private void OnPostRender()

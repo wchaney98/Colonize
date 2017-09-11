@@ -18,6 +18,12 @@ public class NodeMenu : MonoBehaviour
         Debug.Log("Upgrade");
     }
 
+    public void SwitchToMoveState()
+    {
+        GameManager.PlayerState = PlayerState.MOVING;
+        DeActivate();
+    }
+
     public void ActivateForNode(INode node)
     {
         gameObject.SetActive(true);

@@ -12,6 +12,7 @@ public interface INode
     List<INode> ConnectedNodes { get; set; }
 
     void ConnectTo(INode otherNode);
+    void MoveTo(Vector2 mousePos);
     void AddConnectedNode(INode otherNode);
     void DisconnectFrom(INode otherNode);
     void RemoveConnectedNode(INode otherNode);

@@ -14,6 +14,7 @@ public class BasicNode : MonoBehaviour, INode
     public int DecaySpeed { get; set; }
     private int DecayCounter = 0;
     private int FramesPerDecay = 60;
+    private int MoveSpeed = 2;
 
     public List<INode> ConnectedNodes { get; set; }
 
@@ -73,6 +74,13 @@ public class BasicNode : MonoBehaviour, INode
         }
     }
 
+    public void MoveTo(Vector2 mousePos)
+    {
+        Vector2 dir = mousePos - (Vector2)Position;
+        dir.Normalize();
+        StartCoroutine(MoveToPosition(mousePos, dir));
+    }
+
     public void AddConnectedNode (INode otherNode)
     {
         if (!ConnectedNodes.Contains(otherNode))
@@ -106,6 +114,19 @@ public class BasicNode : MonoBehaviour, INode
     private void Awake()
     {
         ConnectedNodes = new List<INode>();
+    }
+
+    IEnumerator MoveToPosition(Vector2 newPos, Vector2 dir)
+    {
+        while (Vector2.Distance(transform.position, newPos) > 0.1f)
+        {
+            Vector2 temp = transform.position;
+            temp += dir * MoveSpeed * Time.deltaTime;
+            transform.position = temp;
+            Position = transform.position;
+            DecayCounter++;
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     void Start ()
