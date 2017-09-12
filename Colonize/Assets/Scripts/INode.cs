@@ -5,6 +5,7 @@ using UnityEngine;
 public interface INode
 {
     Vector3 Position { get; set; }
+    bool ReceivingResources { get; set; }
     int Level { get; set; }
     int Life { get; set; }
     int MaxLife { get; set; }
@@ -16,5 +17,6 @@ public interface INode
     void AddConnectedNode(INode otherNode);
     void DisconnectFrom(INode otherNode);
     void RemoveConnectedNode(INode otherNode);
-
+    void ReceiveResources(int amount, INode sender);
+    void DestroySelf();
 }

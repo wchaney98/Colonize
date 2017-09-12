@@ -6,7 +6,9 @@ public enum PlayerState
 {
     FREE,
     CONNECTING,
-    MOVING
+    MOVING,
+    BUILDING_BASIC,
+    BUILDING_AQUEDUCT
 }
 
 public class GameManager : MonoBehaviour 
@@ -16,32 +18,21 @@ public class GameManager : MonoBehaviour
     public PlayerState PlayerState { get; set; }
     public INode SelectedNode { get; set; }
 
-    private GameObject basicNodePrefab;
+    public GameObject BasicNodePrefab;
+    public GameObject AqueductNodePrefab;
 
     private NodeManager nodeManager;
     private LineRenderer lineRenderer;
+
+    public void ResetNodes()
+    {
+        nodeManager.RemoveAllNodes();
+    }
 
 	void Start () 
 	{
         nodeManager = new NodeManager(this);
         PlayerState = PlayerState.FREE;
-
-        basicNodePrefab = Resources.Load("Prefabs/BasicNode") as GameObject;
-        Debug.Log(basicNodePrefab);
-        GameObject testBN0 = Instantiate(basicNodePrefab, new Vector3(-3f, 1f), Quaternion.identity);
-        GameObject testBN1 = Instantiate(basicNodePrefab, new Vector3(3f, -1f), Quaternion.identity);
-        GameObject testBN2 = Instantiate(basicNodePrefab, new Vector3(3f, 1f), Quaternion.identity);
-        GameObject testBN3 = Instantiate(basicNodePrefab, new Vector3(-3f, -1f), Quaternion.identity);
-
-        BasicNode testBN0class = testBN0.GetComponent<BasicNode>();
-        BasicNode testBN1class = testBN1.GetComponent<BasicNode>();
-        BasicNode testBN2class = testBN2.GetComponent<BasicNode>();
-        BasicNode testBN3class = testBN3.GetComponent<BasicNode>();
-
-        nodeManager.AddNode(testBN0class);
-        nodeManager.AddNode(testBN1class);
-        nodeManager.AddNode(testBN2class);
-        nodeManager.AddNode(testBN3class);
 	}
 	
 	void Update () 
@@ -52,7 +43,25 @@ public class GameManager : MonoBehaviour
             SelectedNode.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             PlayerState = PlayerState.FREE;
         }
-	}
+        if (PlayerState == PlayerState.BUILDING_BASIC && Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            GameObject go = Instantiate(BasicNodePrefab, new Vector3(mousePos.x, mousePos.y), Quaternion.identity);
+            BasicNode node = go.GetComponent<BasicNode>();
+            nodeManager.AddNode(node);
+            PlayerState = PlayerState.FREE;
+            Debug.Log("Attempting build BASIC");
+        }
+        if (PlayerState == PlayerState.BUILDING_AQUEDUCT && Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            GameObject go = Instantiate(AqueductNodePrefab, new Vector3(mousePos.x, mousePos.y), Quaternion.identity);
+            AqueductNode node = go.GetComponent<AqueductNode>();
+            nodeManager.AddNode(node);
+            PlayerState = PlayerState.FREE;
+            Debug.Log("Attempting build AQUEDUCT");
+        }
+    }
 
     private void OnPostRender()
     {
@@ -60,7 +69,6 @@ public class GameManager : MonoBehaviour
         lineMat.SetPass(0);
         GL.LoadOrtho();
         GL.Begin(GL.LINES);
-        GL.Color(Color.white);
         foreach (INode baseNode in nodeManager.Nodes)
         {
             Vector3 baseNodePos = Camera.current.WorldToScreenPoint(baseNode.Position);
@@ -68,6 +76,7 @@ public class GameManager : MonoBehaviour
             {
                 Vector3 connectedNodePos = Camera.current.WorldToScreenPoint(connectedNode.Position);
 
+                GL.Color(connectedNode.ReceivingResources ? Color.yellow : Color.white);
                 GL.Vertex(new Vector3(baseNodePos.x / Screen.width, baseNodePos.y / Screen.height));
                 GL.Vertex(new Vector3(connectedNodePos.x / Screen.width, connectedNodePos.y / Screen.height));
             }

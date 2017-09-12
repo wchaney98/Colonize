@@ -17,4 +17,13 @@ public class NodeManager
     {
         Nodes.Add(node);
     }
+
+    public void RemoveAllNodes()
+    {
+        foreach (INode node in Nodes)
+        {
+            node.DestroySelf();
+        }
+        Nodes.RemoveAll(x => true);
+    }
 }

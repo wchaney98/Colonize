@@ -38,7 +38,6 @@ public class NodeMenu : MonoBehaviour
 	void Start ()
     {
         GameManager = Camera.GetComponent<GameManager>();
-        DeActivate();
 	}
 	
 	void Update ()

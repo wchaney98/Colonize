@@ -5,6 +5,9 @@ using UnityEngine;
 public class BasicNode : MonoBehaviour, INode
 {
     public Vector3 Position { get; set; }
+
+    public bool ReceivingResources { get; set; }
+
     public int Level { get; set; }
 
     public int Life { get; set; }
@@ -15,6 +18,9 @@ public class BasicNode : MonoBehaviour, INode
     private int DecayCounter = 0;
     private int FramesPerDecay = 60;
     private int MoveSpeed = 2;
+
+    private int receivedResourcesLightupFrames = 0;
+    private int lightupFrames = 7;
 
     public List<INode> ConnectedNodes { get; set; }
 
@@ -66,6 +72,16 @@ public class BasicNode : MonoBehaviour, INode
                 ConnectedNodes.Add(otherNode);
                 otherNode.AddConnectedNode(this);
                 Debug.Log("ConnectTo Result:" + ConnectedNodes);
+                foreach (INode node in ConnectedNodes)
+                {
+                    Debug.Log("ConnectTo: " + node);
+                }
+            }
+            if (otherNode is AqueductNode)
+            {
+                ConnectedNodes.Add(otherNode);
+                otherNode.AddConnectedNode(this);
+                Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
                 foreach (INode node in ConnectedNodes)
                 {
                     Debug.Log("ConnectTo: " + node);
@@ -134,6 +150,7 @@ public class BasicNode : MonoBehaviour, INode
         Position = transform.position;
         textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        ReceivingResources = false;
         Level = 1;
         Life = 100;
         MaxLife = 100;
@@ -150,6 +167,16 @@ public class BasicNode : MonoBehaviour, INode
             Life -= DecaySpeed;
             DecayCounter = 0;
         }
+
+        if (ReceivingResources)
+        {
+            receivedResourcesLightupFrames++;
+            if (receivedResourcesLightupFrames > lightupFrames)
+            {
+                ReceivingResources = false;
+                receivedResourcesLightupFrames = 0;
+            }
+        }    
             
         if (Life <= 0)
         {
@@ -164,4 +191,16 @@ public class BasicNode : MonoBehaviour, INode
             spriteRenderer.color = Color.white;
         }
 	}
+
+    public void ReceiveResources(int amount, INode sender)
+    {
+        Life += amount;
+        ReceivingResources = true;
+        // Maybe add receive animation here?
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
 }
