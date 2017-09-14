@@ -37,29 +37,32 @@ public class GameManager : MonoBehaviour
 	
 	void Update () 
 	{
-        if (PlayerState == PlayerState.MOVING && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Attempting move");
-            SelectedNode.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            PlayerState = PlayerState.FREE;
-        }
-        if (PlayerState == PlayerState.BUILDING_BASIC && Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject go = Instantiate(BasicNodePrefab, new Vector3(mousePos.x, mousePos.y), Quaternion.identity);
-            BasicNode node = go.GetComponent<BasicNode>();
-            nodeManager.AddNode(node);
-            PlayerState = PlayerState.FREE;
-            Debug.Log("Attempting build BASIC");
-        }
-        if (PlayerState == PlayerState.BUILDING_AQUEDUCT && Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject go = Instantiate(AqueductNodePrefab, new Vector3(mousePos.x, mousePos.y), Quaternion.identity);
-            AqueductNode node = go.GetComponent<AqueductNode>();
-            nodeManager.AddNode(node);
-            PlayerState = PlayerState.FREE;
-            Debug.Log("Attempting build AQUEDUCT");
+            if (PlayerState == PlayerState.MOVING)
+            {
+                Debug.Log("Attempting move");
+                SelectedNode.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                PlayerState = PlayerState.FREE;
+            }
+            else if (PlayerState == PlayerState.BUILDING_BASIC)
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                GameObject go = Instantiate(BasicNodePrefab, new Vector3(mousePos.x, mousePos.y), Quaternion.identity);
+                BasicNode node = go.GetComponent<BasicNode>();
+                nodeManager.AddNode(node);
+                PlayerState = PlayerState.FREE;
+                Debug.Log("Attempting build BASIC");
+            }
+            else if (PlayerState == PlayerState.BUILDING_AQUEDUCT)
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                GameObject go = Instantiate(AqueductNodePrefab, new Vector3(mousePos.x, mousePos.y), Quaternion.identity);
+                AqueductNode node = go.GetComponent<AqueductNode>();
+                nodeManager.AddNode(node);
+                PlayerState = PlayerState.FREE;
+                Debug.Log("Attempting build AQUEDUCT");
+            }
         }
     }
 

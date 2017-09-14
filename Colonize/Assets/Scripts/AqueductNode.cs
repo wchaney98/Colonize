@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public enum ResourceType
@@ -11,6 +12,18 @@ public enum ResourceType
 
 public class AqueductNode : MonoBehaviour, INode
 {
+    public string NodeInfo
+    {
+        get
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Node Type: " + GetType().Name).
+                AppendLine("Life: " + Life + "/" + MaxLife).
+                AppendLine("Level: " + Level);
+            return sb.ToString();
+        }
+    }
+
     public Vector3 Position { get; set; }
 
     public bool ReceivingResources { get; set; }
