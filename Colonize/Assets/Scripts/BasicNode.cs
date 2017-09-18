@@ -17,6 +17,10 @@ public class BasicNode : MonoBehaviour, INode
         }
     }
 
+    public GameObject ResourcesReceivedEffect;
+
+    public bool Dead { get; set; }
+
     public Vector3 Position { get; set; }
 
     public bool ReceivingResources { get; set; }
@@ -28,8 +32,8 @@ public class BasicNode : MonoBehaviour, INode
     public int MaxLife { get; set; }
 
     public int DecaySpeed { get; set; }
-    private int DecayCounter = 0;
-    private int FramesPerDecay = 60;
+    private float DecayCounter = 0;
+    private float SecPerDecay = 0.5f;
     private int MoveSpeed = 2;
 
     private int receivedResourcesLightupFrames = 0;
@@ -40,6 +44,14 @@ public class BasicNode : MonoBehaviour, INode
     private TextMesh textMesh;
     private SpriteRenderer spriteRenderer;
     private NodeMenu nodeMenu;
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Virus")
+        {
+            DecayCounter += Time.deltaTime * 4;
+        }
+    }
 
     void OnMouseDown()
     {
@@ -92,12 +104,15 @@ public class BasicNode : MonoBehaviour, INode
             }
             if (otherNode is AqueductNode)
             {
-                ConnectedNodes.Add(otherNode);
-                otherNode.AddConnectedNode(this);
-                Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
-                foreach (INode node in ConnectedNodes)
+                if (otherNode.ConnectedNodes.Count == 0)
                 {
-                    Debug.Log("ConnectTo: " + node);
+                    ConnectedNodes.Add(otherNode);
+                    otherNode.AddConnectedNode(this);
+                    Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
+                    foreach (INode node in ConnectedNodes)
+                    {
+                        Debug.Log("ConnectTo: " + node);
+                    }
                 }
             }
         }
@@ -105,6 +120,7 @@ public class BasicNode : MonoBehaviour, INode
 
     public void MoveTo(Vector2 mousePos)
     {
+        StopAllCoroutines();
         Vector2 dir = mousePos - (Vector2)Position;
         dir.Normalize();
         StartCoroutine(MoveToPosition(mousePos, dir));
@@ -153,13 +169,14 @@ public class BasicNode : MonoBehaviour, INode
             temp += dir * MoveSpeed * Time.deltaTime;
             transform.position = temp;
             Position = transform.position;
-            DecayCounter++;
+            DecayCounter += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
     }
 
     void Start ()
     {
+        Dead = false;
         Position = transform.position;
         textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -174,8 +191,8 @@ public class BasicNode : MonoBehaviour, INode
 	void Update ()
     {
         textMesh.text = Mathf.Floor((((float)Life / MaxLife) * 100)).ToString() + "%";
-        DecayCounter++;
-        if (DecayCounter >= FramesPerDecay * (ConnectedNodes.Count + 1))
+        DecayCounter += Time.deltaTime;
+        if (DecayCounter >= SecPerDecay * (ConnectedNodes.Count + 1))
         {
             Life -= DecaySpeed;
             DecayCounter = 0;
@@ -183,6 +200,11 @@ public class BasicNode : MonoBehaviour, INode
 
         if (ReceivingResources)
         {
+            if (receivedResourcesLightupFrames == 0)
+            {
+                GameObject go = Instantiate(ResourcesReceivedEffect, new Vector3(transform.position.x, transform.position.y, -5f), Quaternion.identity);
+                Destroy(go, 2f);
+            }
             receivedResourcesLightupFrames++;
             if (receivedResourcesLightupFrames > lightupFrames)
             {
@@ -193,7 +215,7 @@ public class BasicNode : MonoBehaviour, INode
             
         if (Life <= 0)
         {
-            DestroyObject(gameObject);
+            DestroySelf();
         }
 
         if (nodeMenu.GameManager.SelectedNode as Object == this)
@@ -205,7 +227,7 @@ public class BasicNode : MonoBehaviour, INode
         }
 	}
 
-    public void ReceiveResources(int amount, INode sender)
+    public void ReceiveResources(int amount, INode sender, INode originalSender)
     {
         Life += amount;
         ReceivingResources = true;
@@ -214,6 +236,12 @@ public class BasicNode : MonoBehaviour, INode
 
     public void DestroySelf()
     {
+        foreach (INode node in ConnectedNodes)
+        {
+            node.ConnectedNodes.Remove(this);
+        }
         Destroy(gameObject);
+        Dead = true;
+        Destroy(this);
     }
 }

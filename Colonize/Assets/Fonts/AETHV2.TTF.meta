@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: bc665fa3d6374a74693cfb51b339e2f6
+timeCreated: 1505699878
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Aetherfox
+  fontNames:
+  - Aetherfox
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

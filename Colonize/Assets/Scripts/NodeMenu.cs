@@ -7,6 +7,8 @@ public class NodeMenu : MonoBehaviour
     public GameObject Camera;
     public GameManager GameManager;
 
+    private INode attachedNode = null;
+
     public void SwitchToConnectState()
     {
         GameManager.PlayerState = PlayerState.CONNECTING;
@@ -26,8 +28,9 @@ public class NodeMenu : MonoBehaviour
 
     public void ActivateForNode(INode node)
     {
+        attachedNode = node;
         gameObject.SetActive(true);
-        transform.position = node.Position;
+        transform.position = attachedNode.Position;
     }
 
     public void DeActivate()
@@ -42,7 +45,7 @@ public class NodeMenu : MonoBehaviour
 	
 	void Update ()
     {
-		
-	}
+        transform.position = attachedNode.Position;
+    }
 
 }

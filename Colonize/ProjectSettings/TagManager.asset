@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Resource
+  - Virus
   layers:
   - Default
   - TransparentFX

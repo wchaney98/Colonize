@@ -24,6 +24,8 @@ public class AqueductNode : MonoBehaviour, INode
         }
     }
 
+    public bool Dead { get; set; }
+
     public Vector3 Position { get; set; }
 
     public bool ReceivingResources { get; set; }
@@ -34,13 +36,17 @@ public class AqueductNode : MonoBehaviour, INode
 
     public int MaxLife { get; set; }
 
-    public int DecaySpeed { get; set; }
-    private int DecayCounter = 0;
-    private int FramesPerDecay = 180;
-    private int MoveSpeed = 2;
+    public GameObject ResourcesReceivedEffect;
 
-    private int GatherCounter = 0;
-    private int FramesPerGather = 15;
+    public int DecaySpeed { get; set; }
+    private float DecayCounter = 0;
+    private float SecPerDecay = 0.7f;
+    private int MoveSpeed = 3;
+
+    private float GatherCounter = 0;
+    private float SecPerGather = 1.2f;
+    private bool gathering = false;
+    private static readonly int LIFE_PER_GATHER = 7;
 
     private int receivedResourcesLightupFrames = 0;
     private int lightupFrames = 7;
@@ -51,24 +57,48 @@ public class AqueductNode : MonoBehaviour, INode
     private SpriteRenderer spriteRenderer;
     private NodeMenu nodeMenu;
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Resource" && other.gameObject.GetComponent<Resource>().Gatherer == null)
+        {
+            gathering = true;
+            GatherAndTransferResources(LIFE_PER_GATHER);
+            other.gameObject.GetComponent<Resource>().Gatherer = this;
+        }
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
-        GatherCounter++;
-        if (GatherCounter >= FramesPerGather)
+        GatherCounter += Time.deltaTime;
+        if (GatherCounter >= SecPerGather)
         {
-            if (other.tag == "Resource")
+            if (other.tag == "Resource" && other.gameObject.GetComponent<Resource>().Gatherer as Object == this)
             {
-                GatherAndTransferResources(3);
+                GatherAndTransferResources(LIFE_PER_GATHER);
             }
             GatherCounter = 0;
-        }   
+        }
+        else if (other.tag == "Virus")
+        {
+            DecayCounter += Time.deltaTime * 4;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Resource")
+        {
+            gathering = false;
+            GatherAndTransferResources(LIFE_PER_GATHER);
+            other.gameObject.GetComponent<Resource>().Gatherer = null;
+        }
     }
 
     void GatherAndTransferResources(int amount)
     {
         foreach (INode node in ConnectedNodes)
         {
-            node.ReceiveResources(amount, this);
+            node.ReceiveResources(amount, this, this);
         }
     }
 
@@ -109,6 +139,11 @@ public class AqueductNode : MonoBehaviour, INode
 
     public void ConnectTo(INode otherNode)
     {
+        if (ConnectedNodes.Count > 0)
+        {
+            ConnectedNodes[0].ConnectedNodes.Remove(this);
+        }
+        ConnectedNodes.Clear();
         if (!ConnectedNodes.Contains(otherNode))
         {
             if (otherNode is BasicNode)
@@ -123,12 +158,15 @@ public class AqueductNode : MonoBehaviour, INode
             }
             if (otherNode is AqueductNode)
             {
-                ConnectedNodes.Add(otherNode);
-                otherNode.AddConnectedNode(this);
-                Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
-                foreach (INode node in ConnectedNodes)
+                if (otherNode.ConnectedNodes.Count == 0)
                 {
-                    Debug.Log("ConnectTo: " + node);
+                    ConnectedNodes.Add(otherNode);
+                    otherNode.AddConnectedNode(this);
+                    Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
+                    foreach (INode node in ConnectedNodes)
+                    {
+                        Debug.Log("ConnectTo: " + node);
+                    }
                 }
             }
         }
@@ -136,6 +174,7 @@ public class AqueductNode : MonoBehaviour, INode
 
     public void MoveTo(Vector2 mousePos)
     {
+        StopAllCoroutines();
         Vector2 dir = mousePos - (Vector2)Position;
         dir.Normalize();
         StartCoroutine(MoveToPosition(mousePos, dir));
@@ -184,13 +223,14 @@ public class AqueductNode : MonoBehaviour, INode
             temp += dir * MoveSpeed * Time.deltaTime;
             transform.position = temp;
             Position = transform.position;
-            DecayCounter++;
+            DecayCounter += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
     }
 
     void Start()
     {
+        Dead = false;
         Position = transform.position;
         textMesh = transform.GetChild(0).GetComponent<TextMesh>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -205,8 +245,8 @@ public class AqueductNode : MonoBehaviour, INode
     void Update()
     {
         textMesh.text = Mathf.Floor((((float)Life / MaxLife) * 100)).ToString() + "%";
-        DecayCounter++;
-        if (DecayCounter >= FramesPerDecay * (ConnectedNodes.Count + 1))
+        DecayCounter += Time.deltaTime;
+        if (DecayCounter >= SecPerDecay * (ConnectedNodes.Count + 1))
         {
             Life -= DecaySpeed;
             DecayCounter = 0;
@@ -214,7 +254,12 @@ public class AqueductNode : MonoBehaviour, INode
 
         if (ReceivingResources)
         {
-            receivedResourcesLightupFrames++;
+            if (receivedResourcesLightupFrames == 0)
+            {
+                GameObject go = Instantiate(ResourcesReceivedEffect, new Vector3(transform.position.x, transform.position.y, -5f), Quaternion.identity);
+                Destroy(go, 2f);
+            }
+            receivedResourcesLightupFrames++;      
             if (receivedResourcesLightupFrames > lightupFrames)
             {
                 ReceivingResources = false;
@@ -224,12 +269,16 @@ public class AqueductNode : MonoBehaviour, INode
 
         if (Life <= 0)
         {
-            DestroyObject(gameObject);
+            DestroySelf();
         }
 
         if (nodeMenu.GameManager.SelectedNode as Object == this)
         {
             spriteRenderer.color = new Color(1f, 1f, 0.2f, 1f);
+        }
+        else if (gathering)
+        {
+            spriteRenderer.color = new Color(0.2f, 1f, 1f, 1f);
         }
         else
         {
@@ -237,7 +286,7 @@ public class AqueductNode : MonoBehaviour, INode
         }
     }
 
-    public void ReceiveResources(int amount, INode sender)
+    public void ReceiveResources(int amount, INode sender, INode originalSender)
     {
         Life += amount;
         ReceivingResources = true;
@@ -246,15 +295,21 @@ public class AqueductNode : MonoBehaviour, INode
         // Special Aqueduct behavior
         foreach (INode node in ConnectedNodes)
         {
-            if (node != sender)
+            if (node != sender && node != originalSender)
             {
-                node.ReceiveResources(amount, this);
+                node.ReceiveResources(amount, this, originalSender);
             }
         }
     }
 
     public void DestroySelf()
     {
+        foreach (INode node in ConnectedNodes)
+        {
+            node.ConnectedNodes.Remove(this);
+        }
         Destroy(gameObject);
+        Dead = true;
+        Destroy(this);
     }
 }
