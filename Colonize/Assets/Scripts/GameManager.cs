@@ -71,9 +71,10 @@ public class GameManager : MonoBehaviour
             Instantiate(VirusPrefab, new Vector3
                 (Random.Range(1, 3) == 1 ? Random.Range(-10f, -8f) : Random.Range(8f, 10f),
                 Random.Range(1, 3) == 1 ? Random.Range(-7f, -4f) : Random.Range(4f, 7f),
-                1f),
+                8f),
                 Quaternion.identity);
             virusTimer = 0;
+            virusSpawnRate += 2f;
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -138,7 +139,7 @@ public class GameManager : MonoBehaviour
 
     private void CreateNode(string nodeType, float x, float y)
     {
-        GameObject go = Instantiate(nodeType == "B" ? BasicNodePrefab : AqueductNodePrefab, new Vector2(x, y), Quaternion.identity);
+        GameObject go = Instantiate(nodeType == "B" ? BasicNodePrefab : AqueductNodePrefab, new Vector3(x, y, -5f), Quaternion.identity);
         INode i = go.GetComponent<INode>();
         NodeManager.AddNode(i);
     }

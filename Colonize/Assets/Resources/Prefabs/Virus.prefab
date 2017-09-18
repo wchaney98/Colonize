@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212547071038971636}
   - component: {fileID: 114291460272458476}
   - component: {fileID: 61031225004802618}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Virus
   m_TagString: Virus
   m_Icon: {fileID: 0}
