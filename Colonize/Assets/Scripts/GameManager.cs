@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vectrosity;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum PlayerState
 {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject BasicNodePrefab;
     public GameObject AqueductNodePrefab;
     public GameObject VirusPrefab;
+    public GameObject HelpPanel;
 
     public NodeManager NodeManager;
     private Camera cam;
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
     private float secondTimer = 0;
     private float virusTimer = 0;
     private float virusSpawnRate = 5f;
+
+    private bool paused = false;
 
     public void ResetNodes()
     {
@@ -50,6 +54,7 @@ public class GameManager : MonoBehaviour
         Persistence.existing.Time = 0;
         PlayerState = PlayerState.FREE;
         cam = GetComponent<Camera>();
+        HelpPanel.SetActive(false);
 
         // FOR THIS VER ONLY
         CreateNode("B", -0.5f, -2.5f);
@@ -62,6 +67,21 @@ public class GameManager : MonoBehaviour
 	
 	void Update () 
 	{
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            paused = !paused;
+            if (paused)
+            {
+                Time.timeScale = 0;
+                HelpPanel.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                HelpPanel.SetActive(false);
+            }
+        }
+
         Persistence.existing.Time += Time.deltaTime;
         Persistence.existing.Time = float.Parse(Persistence.existing.Time.ToString("0.00"));
 

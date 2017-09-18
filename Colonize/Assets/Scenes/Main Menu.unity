@@ -231,7 +231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -205}
+  m_AnchoredPosition: {x: 0, y: -94.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625148988
@@ -460,7 +460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -153}
+  m_AnchoredPosition: {x: 0, y: -53.300003}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1196577653
@@ -580,7 +580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 64}
+  m_AnchoredPosition: {x: 0, y: -63.800003}
   m_SizeDelta: {x: 479.6, y: 376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1345773189
@@ -596,7 +596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -615,15 +615,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "COLONIZE\n\nUse the menu in the bottom right to place Basic and Aqueduct
-    Nodes. Reset remove all Nodes\n\nClick Nodes to access their menu. Click \"Connect\"
-    and click on another node to connect them. Click \"Move\" and click anywhere on
-    the screen to send the Node there.\n\nNodes will lose Life over time. Connected
-    Nodes split their Life loss.\n\nPlace Aqueduct Nodes on the resource cloud in
-    the bottom left, then connect it to other Nodes to recharge their Life. \n\nNode
-    connections should flash yellow when Life is transfered, but is currently bugged
-    and not reliable.\n\nAqueduct Nodes can transfer Life across each other, but Basic
-    Nodes can not.\n\nNode upgrade option not functional."
+  m_Text: "COLONIZE\n\nCREDITS:\nAll art assets from: \n\nPerformance metric: time\nRenewable
+    resource: Node Life: spent as time passes, more when Node is moving, much more
+    when Viruses attack, restored by resources and Aqueduct Nodes\n"
 --- !u!222 &1345773190
 CanvasRenderer:
   m_ObjectHideFlags: 0
