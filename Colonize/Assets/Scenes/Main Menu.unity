@@ -615,9 +615,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "COLONIZE\n\nCREDITS:\nAll art assets from: \n\nPerformance metric: time\nRenewable
-    resource: Node Life: spent as time passes, more when Node is moving, much more
-    when Viruses attack, restored by resources and Aqueduct Nodes\n"
+  m_Text: "COLONIZE\n\nCREDITS:\nAll art assets from: https://kenney.nl/assets\n\nPerformance
+    metric: time (longer time = better finishing message) \n\nRenewable resource:
+    Node Life: spent as time passes, more when Node is moving, much more when Viruses
+    attack, restored by resources and Aqueduct Nodes\n"
 --- !u!222 &1345773190
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -175,31 +175,18 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'COLONIZE
-
-
-    Click Nodes to access their menu. Click "Connect" and click on another node to
-    connect them. Click "Move" (or right click) and click anywhere on the screen to
-    send the Node there.
-
-
-    Nodes will lose Life over time. Connected Nodes split their Life loss.
-
-
-    Place Aqueduct Nodes on the resource clouds, then connect it to other Nodes to
-    recharge their Life. Resource nodes can only be gathered by one Aqueduct at a
-    time, and Aqueduct Nodes can only connect to one Node at a time. Resource Nodes
-    move around the map
-
-
-    Node connections should flash yellow when Life is transfered, but is currently
-    bugged and not reliable. When nodes receive resources, they emit particles
-
-
-    Aqueduct Nodes can transfer Life across each other, but Basic Nodes can not.
-
-
-    Node upgrade option not functional.'
+  m_Text: "COLONIZE\n\nTry to make your Nodes live as long as possible.\n\nBasic Nodes
+    are green, Aqueduct Nodes are blue\n\nClick Nodes to access their menu. Click
+    \"Connect\" and click on another node to connect them. Click \"Move\" (or right
+    click) and click anywhere on the screen to send the Node there.\n\nNodes will
+    lose Life over time. Connected Nodes split their Life loss. Green Virus enemies
+    will leech your Life if you let them. Move to evade \n\nPlace Aqueduct Nodes on
+    the resource clouds, then connect it to other Nodes to recharge their Life. Resource
+    nodes can only be gathered by one Aqueduct at a time, and Aqueduct Nodes can only
+    connect to one Node at a time. Resource Nodes move around the map\n\nNode connections
+    should flash yellow when Life is transfered, but is currently bugged and not reliable.
+    When nodes receive resources, they emit particles\n\nAqueduct Nodes can transfer
+    Life across each other, but Basic Nodes can not.\n\nNode upgrade option not functional."
 --- !u!222 &86517516
 CanvasRenderer:
   m_ObjectHideFlags: 0
