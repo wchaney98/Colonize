@@ -32,4 +32,9 @@ public class AbilityMenu : MonoBehaviour
     {
         GameManager = Camera.GetComponent<GameManager>();
     }
+
+    private void Update()
+    {
+        // Check if timers etc allow buttons to be active... use radial fills for cooldown
+    }
 }
