@@ -18,6 +18,7 @@ public class BasicNode : Node
     }*/
 
     protected override float SecPerDecay { get; set; }
+    public override float MoveSpeed { get; set; }
 
     public override void ConnectTo(INode otherNode)
     {

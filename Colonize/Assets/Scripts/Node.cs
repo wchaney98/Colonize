@@ -18,6 +18,7 @@ public abstract class Node : MonoBehaviour, INode
 
     protected float DecayCounter = 0;
     protected abstract float SecPerDecay { get; set; }
+    public abstract float MoveSpeed { get; set; }
 
     protected int receivedResourcesLightupFrames = 0;
     protected int lightupFrames = 7;
@@ -30,6 +31,7 @@ public abstract class Node : MonoBehaviour, INode
     {
         if (other.tag == "Virus")
         {
+            DecayCounter += Time.deltaTime * (Constants.VIRUS_DECAY_MULTIPLIER - VirusResistance);
         }
     }
 

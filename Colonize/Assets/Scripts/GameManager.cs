@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerState PlayerState { get; set; }
     public INode SelectedNode { get; set; }
+    public List<Virus> Viruses = new List<Virus>();
 
     public GameObject BasicNodePrefab;
     public GameObject AqueductNodePrefab;
@@ -31,11 +32,37 @@ public class GameManager : MonoBehaviour
     public NodeManager NodeManager;
     private Camera cam;
 
-    private float secondTimer = 0;
     private float virusTimer = 0;
     private float virusSpawnRate = 5f;
 
     private bool paused = false;
+
+    private bool slowedDown = false;
+    private float slowedDownTimePassed = 0f;
+
+    private float tenTimesAbilityTime = 0f;
+
+    public void SlowdownTime()
+    {
+        slowedDown = true;
+    }
+
+    public void GiveLifeToAll(int amount)
+    {
+        foreach (INode node in NodeManager.Nodes)
+        {
+            node.ReceiveResources(amount, null, null);
+        }
+    }
+
+    public void ResetViruses()
+    {
+        foreach (Virus v in Viruses)
+        {
+            Destroy(v.gameObject);
+        }
+        Viruses.Clear();
+    }
 
     public void ResetNodes()
     {
@@ -52,6 +79,7 @@ public class GameManager : MonoBehaviour
         current = gameObject;
 
         Persistence.existing.Time = 0;
+        Persistence.existing.TenTimesAbilityActive = false;
         PlayerState = PlayerState.FREE;
         cam = GetComponent<Camera>();
         HelpPanel.SetActive(false);
@@ -67,6 +95,29 @@ public class GameManager : MonoBehaviour
 	
 	void Update () 
 	{
+        if (slowedDown && slowedDownTimePassed < Constants.ABILITY_SLOWDOWN_DURATION)
+        {
+            Time.timeScale = Constants.ABILITY_SLOWDOWN_TIMESCALE;
+            slowedDownTimePassed += Time.deltaTime;
+        }
+        else
+        {
+            if (!paused) Time.timeScale = 1f;
+            slowedDownTimePassed = 0f;
+            slowedDown = false;
+        }
+
+        if (Persistence.existing.TenTimesAbilityActive && tenTimesAbilityTime < Constants.ABILITY_TEN_TIMES_DURATION)
+        {
+            tenTimesAbilityTime += Time.deltaTime;
+        }
+        else
+        {
+            tenTimesAbilityTime = 0f;
+            Persistence.existing.TenTimesAbilityActive = false;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;

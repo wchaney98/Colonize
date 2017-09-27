@@ -11,6 +11,8 @@ public interface INode
     int Life { get; set; }
     int MaxLife { get; set; }
     int DecaySpeed { get; set; }
+    int VirusResistance { get; set; }
+    float MoveSpeed { get; set; }
     List<INode> ConnectedNodes { get; set; }
 
     void ConnectTo(INode otherNode);
