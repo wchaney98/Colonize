@@ -138,6 +138,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 94d3d217541fe8cf90f4e936a1c3ec0a Assembly-CSharp.dll:.BuildMenu
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Virus
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BackButton
 7941785f12cbcf44b710fe30611f35d2 Assembly-CSharp.dll:.GameFinishManager
 24da3546349e2ef94518b0a790718c58 Assembly-CSharp.dll:.LevelUpMenu
 05524b8f659e7bfe5756d1335fec24ba Vectrosity.dll:Vectrosity.BrightnessControl
@@ -149,4 +150,3 @@ e22cbb76bf11ce632913d87b0539a1db Vectrosity.dll:Vectrosity.VectorObject2D
 05524b8f659e7bfe5756d1335fec24ba Vectrosity.dll:Vectrosity.VisibilityControlStatic
 a1b2389cbb1851065e5cbbfea8f1cc56 Assembly-CSharp.dll:.ScorePanel
 60055a0028f4422497297a92677ea23c Assembly-CSharp.dll:.BasicNode
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BackButton

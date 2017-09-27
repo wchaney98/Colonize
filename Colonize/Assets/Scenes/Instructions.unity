@@ -629,24 +629,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "COLONIZE\n\nTry to make your Nodes live as long as possible.\n\nBasic Nodes
-    are green, Aqueduct Nodes are blue\n\nClick Nodes to access their menu. Click
-    \"Connect\" and click on another node to connect them. Click \"Move\" and click
-    anywhere on the screen to send the Node there (or right click).\n\nNodes will
-    lose Life over time. Connected Nodes split their Life loss. Green Virus enemies
-    will leech your Life if you let them. Move to evade \n\nPlace Aqueduct Nodes on
-    the resource clouds, then connect it to other Nodes to recharge their Life. Resource
-    nodes can only be gathered by one Aqueduct at a time, and Aqueduct Nodes can only
-    connect to one Node at a time. Resource Nodes move around the map\n\n<b>Overview
-    Feature</b> Increasing a Node's level (bottom middle panel) will increase its
-    resistance to Viruses and move speed. The selected Node will receive the upgrade.
-    \n\n<b>List of Abilities</b> in the bottom left with cooldowns:\nT: Time slowdown
-    for 4 seconds\nS: Grant all Nodes +10 Life\nV: Destroy all Viruses <b>(only usable
-    after 1 minute)</b>\n10: Next resource gather grants 10x more\n\nNode connections
-    should flash yellow when Life is transfered, but is currently bugged and not reliable.
-    When nodes receive resources, they emit particles\n\nAqueduct Nodes can transfer
-    Life across each other, but Basic Nodes can not.\n\nNode upgrade option not functional
-    yet.\nThis really needs images..."
+  m_Text: "COLONIZE\n\nTry to make your Nodes live as long as possible. Press escape
+    to pause.\n\nBasic Nodes are green, Aqueduct Nodes are blue\n\nClick Nodes to
+    access their menu. Click \"Connect\" and click on another node to connect them.
+    Click \"Move\" and click anywhere on the screen to send the Node there (or right
+    click).\n\nNodes will lose Life over time. Connected Nodes split their Life loss.
+    Green Virus enemies will leech your Life if you let them. Move to evade \n\nPlace
+    Aqueduct Nodes on the resource clouds, then connect it to other Nodes to recharge
+    their Life. Resource nodes can only be gathered by one Aqueduct at a time, and
+    Aqueduct Nodes can only connect to one Node at a time. Resource Nodes move around
+    the map\n\n<b>Overview Feature</b> Increasing a Node's level (bottom middle panel)
+    will increase its resistance to Viruses and move speed. The selected Node will
+    receive the upgrade. \n\n<b>List of Abilities</b> in the bottom left with cooldowns:\nT:
+    Time slowdown for 4 seconds\nS: Grant all Nodes +10 Life\nV: Destroy all Viruses
+    <b>(only usable after 1 minute)</b>\n10: Next resource gather grants 10x more\n\nNode
+    connections should flash yellow when Life is transfered, but is currently bugged
+    and not reliable. When nodes receive resources, they emit particles\n\nAqueduct
+    Nodes can transfer Life across each other, but Basic Nodes can not.\n\nNode upgrade
+    option not functional yet. \nThis really needs images..."
 --- !u!222 &1946559203
 CanvasRenderer:
   m_ObjectHideFlags: 0
