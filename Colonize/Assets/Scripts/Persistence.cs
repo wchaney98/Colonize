@@ -6,6 +6,7 @@ public class Persistence : MonoBehaviour
 {
     public static Persistence existing;
     public float Time { get; set; }
+    public bool TenTimesAbilityActive { get; set; }
 
 	void Awake () 
 	{

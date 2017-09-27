@@ -28,6 +28,7 @@ public class Virus : MonoBehaviour
 	{
         Cam = GameObject.Find("Main Camera");
         nodes = Cam.GetComponent<GameManager>().NodeManager.Nodes;
+        Cam.GetComponent<GameManager>().Viruses.Add(this);
     }
 	
 	void Update () 

@@ -5,20 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour 
 {
-
-	void Start () 
-	{
-		
-	}
-	
-	void Update () 
-	{
-		
-	}
-
     public void Play()
     {
         SceneManager.LoadScene("Main Game");
+    }
+
+    public void Instructions()
+    {
+        SceneManager.LoadScene("Instructions");
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
     }
 
     public void Quit()
