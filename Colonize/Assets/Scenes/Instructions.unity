@@ -182,7 +182,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 298437906}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -689,7 +689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -232.62622}
+  m_AnchoredPosition: {x: 0, y: -216.62518}
   m_SizeDelta: {x: 861.6, y: 992.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946559202
@@ -712,11 +712,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 36c20e1b52ce82a4b9bca74f5f4ae7c5, type: 3}
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -724,23 +724,28 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\nCOLONIZE\n\nTry to make your Nodes live as long as possible. Press escape
-    to pause.\n\nBasic Nodes are green, Aqueduct Nodes are blue\n\nClick Nodes to
-    access their menu. Click \"Connect\" and click on another node to connect them.
-    Click \"Move\" and click anywhere on the screen to send the Node there (or right
-    click).\n\nNodes will lose Life over time. Connected Nodes split their Life loss.
-    Green Virus enemies will leech your Life if you let them. Move to evade \n\nPlace
-    Aqueduct Nodes on the resource clouds, then connect it to other Nodes to recharge
-    their Life. Resource nodes can only be gathered by one Aqueduct at a time, and
-    Aqueduct Nodes can only connect to one Node at a time. Resource Nodes move around
-    the map\n\n<b>Overview Feature</b> Increasing a Node's level (bottom middle panel)
-    will increase its resistance to Viruses and move speed. The selected Node will
-    receive the upgrade. \n\n<b>List of Abilities</b> in the bottom left with cooldowns:\nT:
-    Time slowdown for 4 seconds\nS: Grant all Nodes +10 Life\nV: Destroy all Viruses
-    <b>(only usable after 1 minute)</b>\n10: Next resource gather grants 10x more\n\nNode
-    connections should flash yellow when Life is transfered, but is currently bugged
-    and not reliable. When nodes receive resources, they emit particles\n\nAqueduct
-    Nodes can transfer Life across each other, but Basic Nodes can not.\n\n"
+  m_Text: "\n<size=24>COLONIZE</size>\n\n\tTry to make your Nodes live as long as
+    possible. Press escape to pause. Change controls in options\n\n<size=20>Nodes</size>\n\n\tBasic
+    Nodes are green, Aqueduct Nodes are blue\n\n\tClick individual nodes to select
+    them or click and drag to select multiple. Right click to \tmove, press C to \n\tconnect\n\n\tNodes
+    will lose Life over time. Connected Nodes split their Life loss. Green Virus enemies
+    will leech your \n\tLife if you let them. Move to evade \n\n\tPlace Aqueduct Nodes
+    on the resource clouds, then connect it to other Nodes to recharge their Life.
+    \n\tResource nodes can only be gathered by one Aqueduct at a time, and Aqueduct
+    Nodes can only connect to one \n\tNode at a time. Resource Nodes move around the
+    map\n\n\tBasic node can not gather resources\n\n\tIncreasing a Node's level (bottom
+    middle panel or press L) will increase its resistance to Viruses and move \n\tspeed.
+    The selected Node will receive the upgrade. \n\n\tWhen nodes receive resources,
+    they emit particles\n\n<size=20>Abilities</size>\n\n\t<b>List of Abilities</b>
+    in the bottom left with cooldowns:\n\tT: Time slowdown for 4 seconds\n\tS: Grant
+    all Nodes +10 Life\n\tV: Destroy all Viruses <b>(only usable after 1 minute)</b>\n\t10:
+    Next resource gather grants 10x more\n\n<size=20>Known Bugs</size>\n\n\tConnections
+    do not always light up properly when resources are transferred\n\n<size=20>New
+    Features</size>\n\t<b>Multi-unit selection</b> : Click and drag to select multiple
+    nodes. Actions are applied to all selected nodes.\n\t<b>Configurable controls</b>
+    : Goto options to change hotkeys for various actions\n\t<b>3 UI text changes</b>
+    : Consistent font style across game. Better layout of instructions page. Node
+    life \t\n\tpercentages turn red once it reaches 20% or lower "
 --- !u!222 &1946559203
 CanvasRenderer:
   m_ObjectHideFlags: 0
