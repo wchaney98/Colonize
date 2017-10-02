@@ -14,6 +14,7 @@ public interface INode
     int VirusResistance { get; set; }
     float MoveSpeed { get; set; }
     List<INode> ConnectedNodes { get; set; }
+    NodeMenu NodeMenu { get; set; }
 
     void ConnectTo(INode otherNode);
     void MoveTo(Vector2 mousePos);

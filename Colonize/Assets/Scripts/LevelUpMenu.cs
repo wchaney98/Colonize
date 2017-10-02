@@ -17,26 +17,35 @@ public class LevelUpMenu : MonoBehaviour
 
     public void LevelUp1()
     {
-        GameManager.SelectedNode.Level = 2;
-        GameManager.SelectedNode.Life -= Constants.LEVEL_UP_1_COST;
-        GameManager.SelectedNode.VirusResistance = 1;
-        GameManager.SelectedNode.MoveSpeed *= (float)1.5;
+        foreach(INode node in GameManager.SelectedNodes)
+        {
+            node.Level = 2;
+            node.Life -= Constants.LEVEL_UP_1_COST;
+            node.VirusResistance = 1;
+            node.MoveSpeed *= (float)1.5;
+        }
     }
 
     public void LevelUp2()
     {
-        GameManager.SelectedNode.Level = 3;
-        GameManager.SelectedNode.Life -= Constants.LEVEL_UP_2_COST;
-        GameManager.SelectedNode.VirusResistance = 2;
-        GameManager.SelectedNode.MoveSpeed *= (float)1.5;
+        foreach (INode node in GameManager.SelectedNodes)
+        {
+            node.Level = 3;
+            node.Life -= Constants.LEVEL_UP_2_COST;
+            node.VirusResistance = 2;
+            node.MoveSpeed *= (float)1.5;
+        }
     }
 
     public void LevelUp3()
     {
-        GameManager.SelectedNode.Level = 4;
-        GameManager.SelectedNode.Life -= Constants.LEVEL_UP_3_COST;
-        GameManager.SelectedNode.VirusResistance = 3;
-        GameManager.SelectedNode.MoveSpeed *= (float)1.5;
+        foreach (INode node in GameManager.SelectedNodes)
+        {
+            node.Level = 4;
+            node.Life -= Constants.LEVEL_UP_3_COST;
+            node.VirusResistance = 3;
+            node.MoveSpeed *= (float)1.5;
+        }
     }
 
     void Start()
@@ -50,28 +59,54 @@ public class LevelUpMenu : MonoBehaviour
 
     private void Update()
     {
-        INode node = GameManager.SelectedNode;
-        if (node != null && node.Level <= 3)
+        foreach (INode node in GameManager.SelectedNodes)
         {
-            canvasGroup.alpha = 1f;
-            canvasGroup.interactable = true;
-            foreach (Button b in levelUpButtons)
+            if (node != null && node.Level <= 3)
             {
-                if (b != levelUpButtons[node.Level - 1])
+                canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+                foreach (Button b in levelUpButtons)
+                {
+                    if (b != levelUpButtons[node.Level - 1])
+                    {
+                        b.interactable = false;
+                    }
+                }
+                levelUpButtons[node.Level - 1].interactable = true;
+            }
+            else
+            {
+                foreach (Button b in levelUpButtons)
                 {
                     b.interactable = false;
                 }
+                canvasGroup.alpha = 0f;
+                canvasGroup.interactable = false;
             }
-            levelUpButtons[node.Level - 1].interactable = true;
-        }
-        else
-        {
-            foreach (Button b in levelUpButtons)
+            if (node != null && Input.GetKeyDown(Persistence.existing.Controls["LevelUpKey"]))
             {
-                b.interactable = false;
+                switch (node.Level)
+                {
+                    case 1:
+                        node.Level = 2;
+                        node.Life -= Constants.LEVEL_UP_1_COST;
+                        node.VirusResistance = 1;
+                        node.MoveSpeed *= (float)1.5;
+                        break;
+                    case 2:
+                        node.Level = 3;
+                        node.Life -= Constants.LEVEL_UP_2_COST;
+                        node.VirusResistance = 2;
+                        node.MoveSpeed *= (float)1.5;
+                        break;
+                    case 3:
+                        node.Level = 4;
+                        node.Life -= Constants.LEVEL_UP_3_COST;
+                        node.VirusResistance = 3;
+                        node.MoveSpeed *= (float)1.5;
+                        break;
+                }
             }
-            canvasGroup.alpha = 0f;
-            canvasGroup.interactable = false;
         }
     }
 }

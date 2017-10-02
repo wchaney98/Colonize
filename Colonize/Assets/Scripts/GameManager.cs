@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public Material lineMat;
 
     public PlayerState PlayerState { get; set; }
-    public INode SelectedNode { get; set; }
+    public List<INode> SelectedNodes { get; set; }
     public List<Virus> Viruses = new List<Virus>();
 
     public GameObject BasicNodePrefab;
@@ -41,6 +41,22 @@ public class GameManager : MonoBehaviour
     private float slowedDownTimePassed = 0f;
 
     private float tenTimesAbilityTime = 0f;
+
+    public void ProcessSelection(Vector2 point1, Vector2 point2)
+    {
+        SelectedNodes.Clear();
+        Rect bounds = new Rect(point1.x, point1.y, point2.x - point1.x, point2.y - point1.y);
+
+        foreach (INode node in NodeManager.Nodes)
+        {
+            if (bounds.Contains(cam.WorldToScreenPoint(node.Position), true))
+            {
+                SelectedNodes.Add(node);
+                node.NodeMenu.ActivateForNode(node);
+            }
+        }
+        
+    }
 
     public void SlowdownTime()
     {
@@ -77,6 +93,7 @@ public class GameManager : MonoBehaviour
     void Start () 
 	{
         current = gameObject;
+        SelectedNodes = new List<INode>();
 
         Persistence.existing.Time = 0;
         Persistence.existing.TenTimesAbilityActive = false;
@@ -150,10 +167,13 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (PlayerState == PlayerState.FREE && SelectedNode != null)
+            if (PlayerState == PlayerState.FREE && SelectedNodes != null)
             {
                 Debug.Log("Attempting move (RIGHT CLICK)");
-                SelectedNode.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                foreach (INode node in SelectedNodes)
+                {
+                    node.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                } 
             }
         }
 
@@ -162,7 +182,10 @@ public class GameManager : MonoBehaviour
             if (PlayerState == PlayerState.MOVING)
             {
                 Debug.Log("Attempting move (LEFT CLICK)");
-                SelectedNode.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                foreach (INode node in SelectedNodes)
+                {
+                    node.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                }
                 PlayerState = PlayerState.FREE;
             }
             else if (PlayerState == PlayerState.BUILDING_BASIC)
@@ -213,29 +236,5 @@ public class GameManager : MonoBehaviour
         GameObject go = Instantiate(nodeType == "B" ? BasicNodePrefab : AqueductNodePrefab, new Vector3(x, y, -5f), Quaternion.identity);
         INode i = go.GetComponent<INode>();
         NodeManager.AddNode(i);
-    }
-
-    private void OnPostRender()
-    {
-        /*
-        GL.PushMatrix();
-        lineMat.SetPass(0);
-        GL.LoadOrtho();
-        GL.Begin(GL.LINES);
-        foreach (INode baseNode in nodeManager.Nodes)
-        {
-            Vector3 baseNodePos = Camera.current.WorldToScreenPoint(baseNode.Position);
-            foreach (INode connectedNode in baseNode.ConnectedNodes)
-            {
-                Vector3 connectedNodePos = Camera.current.WorldToScreenPoint(connectedNode.Position);
-
-                GL.Color(connectedNode.ReceivingResources ? Color.yellow : Color.white);
-                GL.Vertex(new Vector3(baseNodePos.x / Screen.width, baseNodePos.y / Screen.height));
-                GL.Vertex(new Vector3(connectedNodePos.x / Screen.width, connectedNodePos.y / Screen.height));
-            }
-        }
-        GL.End();
-        GL.PopMatrix();
-        */
     }
 }

@@ -62,6 +62,23 @@ public class AbilityMenu : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(Persistence.existing.Controls["SlowTimeKey"]))
+        {
+            SlowdownAbility();
+        }
+        if (Input.GetKeyDown(Persistence.existing.Controls["SurplusKey"]))
+        {
+            SurplusAbility();
+        }
+        if (Input.GetKeyDown(Persistence.existing.Controls["DestroyVirusesKey"]))
+        {
+            DestroyVirusesAbility();
+        }
+        if (Input.GetKeyDown(Persistence.existing.Controls["TenTimesResourceKey"]))
+        {
+            TenTimesAbility();
+        }
+
         // Check if timers etc allow buttons to be active... use radial fills for cooldown
         if (SlowdownCooldownRemaining >= 0f)
         {

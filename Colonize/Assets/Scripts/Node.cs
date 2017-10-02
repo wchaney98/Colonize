@@ -25,7 +25,7 @@ public abstract class Node : MonoBehaviour, INode
 
     protected TextMesh textMesh;
     protected SpriteRenderer spriteRenderer;
-    protected NodeMenu nodeMenu;
+    public NodeMenu NodeMenu { get; set; }
 
     protected virtual void OnTriggerStay2D(Collider2D other)
     {
@@ -37,26 +37,28 @@ public abstract class Node : MonoBehaviour, INode
 
     protected virtual void OnMouseDown()
     {
-        if (nodeMenu.GameManager.PlayerState == PlayerState.FREE)
+        if (NodeMenu.GameManager.PlayerState == PlayerState.FREE)
         {
-            nodeMenu.GameManager.SelectedNode = this;
-            nodeMenu.ActivateForNode(this);
+            NodeMenu.GameManager.SelectedNodes.Clear();
+            NodeMenu.GameManager.SelectedNodes.Add(this);
+            NodeMenu.ActivateForNode(this);
         }
-        else if (nodeMenu.GameManager.PlayerState == PlayerState.CONNECTING)
+        else if (NodeMenu.GameManager.PlayerState == PlayerState.CONNECTING)
         {
-            if (nodeMenu.GameManager.SelectedNode as Object != this)
+            foreach (INode node in NodeMenu.GameManager.SelectedNodes)
             {
-                nodeMenu.GameManager.SelectedNode.ConnectTo(this);
-                nodeMenu.GameManager.PlayerState = PlayerState.FREE;
-                nodeMenu.GameManager.SelectedNode = null;
-                nodeMenu.DeActivate();
+                if (node as Object != this)
+                {
+                    node.ConnectTo(this);        
+                }
+                else
+                {
+                    break;
+                }
             }
-            else
-            {
-                nodeMenu.GameManager.SelectedNode = null;
-                nodeMenu.GameManager.PlayerState = PlayerState.FREE;
-                nodeMenu.DeActivate();
-            }
+            NodeMenu.DeActivate();
+            NodeMenu.GameManager.PlayerState = PlayerState.FREE;
+            NodeMenu.GameManager.SelectedNodes.Clear();
         }
     }
 
@@ -143,7 +145,7 @@ public abstract class Node : MonoBehaviour, INode
         MaxLife = 100;
         DecaySpeed = 1;
         VirusResistance = 0;
-        nodeMenu = Resources.FindObjectsOfTypeAll<NodeMenu>()[0];
+        NodeMenu = Resources.FindObjectsOfTypeAll<NodeMenu>()[0];
     }
 
     protected virtual void Update()
@@ -175,11 +177,20 @@ public abstract class Node : MonoBehaviour, INode
         {
             DestroySelf();
         }
+        if (Life <= 20)
+        {
+            textMesh.color = new Color(1f, 0.1f, 0.1f, 1f);
+        }
+        else
+        {
+            textMesh.color = new Color(0f, 0f, 0f, 1f);
+        }
 
-        if (nodeMenu.GameManager.SelectedNode as Object == this)
+        if (NodeMenu.GameManager.SelectedNodes.Contains(this))
         {
             spriteRenderer.color = new Color(1f, 1f, 0.2f, 1f);
         }
+
         else
         {
             spriteRenderer.color = Color.white;

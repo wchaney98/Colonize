@@ -29,8 +29,7 @@ public class NodeMenu : MonoBehaviour
     public void ActivateForNode(INode node)
     {
         attachedNode = node;
-        gameObject.SetActive(true);
-        transform.position = attachedNode.Position;
+        gameObject.SetActive(true);      
     }
 
     public void DeActivate()
@@ -45,7 +44,10 @@ public class NodeMenu : MonoBehaviour
 	
 	void Update ()
     {
-        transform.position = attachedNode.Position;
+        if (Input.GetKeyDown(Persistence.existing.Controls["ConnectKey"]))
+        {
+            SwitchToConnectState();
+        }
     }
 
 }

@@ -22,5 +22,7 @@ class Constants
     public static readonly int NORMAL_AQUEDUCT_LIFE_PER_GATHER = 5;
 
     public static readonly int VIRUS_DECAY_MULTIPLIER = 5;
+
+    public static readonly float SELECTION_MIN_SIZE = 25f;
 }
 
