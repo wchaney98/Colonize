@@ -25,7 +25,9 @@ public class Persistence : MonoBehaviour
                 { "SlowTimeKey", "r" },
                 { "SurplusKey", "t" },
                 { "DestroyVirusesKey", "f" },
-                { "TenTimesResourceKey", "g" }
+                { "TenTimesResourceKey", "g" },
+                { "ProtanopeToggle", "F1" },
+                { "DeuteranopeToggle", "F2" }
             };
         }
         else if (existing != this)

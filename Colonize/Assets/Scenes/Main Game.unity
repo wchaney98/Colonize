@@ -930,6 +930,7 @@ GameObject:
   - component: {fileID: 496509811}
   - component: {fileID: 496509816}
   - component: {fileID: 496509817}
+  - component: {fileID: 496509818}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1018,7 +1019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c0fd3151635a74aafdee6c0af7864e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineMat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  lineMat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 3}
   Viruses: []
   BasicNodePrefab: {fileID: 1216474240183148, guid: 844e890c27a94a14e8570c935714207e,
     type: 2}
@@ -1039,7 +1040,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManagerObject: {fileID: 496509810}
-  lineTexture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+  lineTexture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 3}
+--- !u!114 &496509818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 496509810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364a13ef71f9b40e58990911b66a39cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlindMode: 1
+  BlindIntensity: 0
+  ColorBlindShader: {fileID: 4800000, guid: 88e723f30bf154fbe91c8f4fe29a7ee9, type: 3}
 --- !u!1 &557872290
 GameObject:
   m_ObjectHideFlags: 0

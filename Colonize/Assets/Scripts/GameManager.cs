@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 	
 	void Update () 
 	{
-        if (slowedDown && slowedDownTimePassed < Constants.ABILITY_SLOWDOWN_DURATION)
+    if (slowedDown && slowedDownTimePassed < Constants.ABILITY_SLOWDOWN_DURATION)
         {
             Time.timeScale = Constants.ABILITY_SLOWDOWN_TIMESCALE;
             slowedDownTimePassed += Time.deltaTime;
