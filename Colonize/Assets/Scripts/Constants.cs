@@ -5,6 +5,9 @@ using System.Text;
 
 class Constants
 {
+    public static readonly string AUDIO_FILE_LOCATION = @"/Sound";
+    public static readonly float AUDIO_SOUND_EFFECT_VOLUME_MULTIPLIER = 1f;
+
     public static readonly int LEVEL_UP_1_COST = 20;
     public static readonly int LEVEL_UP_2_COST = 30;
     public static readonly int LEVEL_UP_3_COST = 40;
