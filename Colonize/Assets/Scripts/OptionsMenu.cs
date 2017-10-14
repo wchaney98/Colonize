@@ -27,6 +27,7 @@ public class OptionsMenu : MonoBehaviour
     private Text TenTimesResourceKeyButtonText;
 
     private bool waitingForNewKey = false;
+    private bool controllerConnected = false;
     private Text currentButtonText = null;
 
     private void EditButtonPressed(Text buttonText)
@@ -37,6 +38,23 @@ public class OptionsMenu : MonoBehaviour
 
     private void Update()
     {
+        string[] temp = Input.GetJoystickNames();
+        if (temp.Length > 0)
+        {
+            if (!string.IsNullOrEmpty(temp[0]))
+            {
+                if (controllerConnected == false)
+                    Debug.Log("Controller is connected");
+                controllerConnected = true;
+            }
+            else
+            {
+                if (controllerConnected == true)
+                    Debug.Log("Controller not connected");
+                controllerConnected = false;
+            }
+        }
+
         if (waitingForNewKey)
         {
             Cursor.visible = false;
