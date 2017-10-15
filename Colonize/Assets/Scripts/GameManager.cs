@@ -237,4 +237,9 @@ public class GameManager : MonoBehaviour
         INode i = go.GetComponent<INode>();
         NodeManager.AddNode(i);
     }
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1f;
+    }
 }

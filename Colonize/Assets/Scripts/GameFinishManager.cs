@@ -12,6 +12,7 @@ public class GameFinishManager : MonoBehaviour
     private Text textComponent;
 	void Start () 
 	{
+        Time.timeScale = 1f;
         textComponent = textObject.GetComponent<Text>();
 
         StringBuilder s = new StringBuilder();
@@ -35,5 +36,10 @@ public class GameFinishManager : MonoBehaviour
     {
         Persistence.existing.Time = 0;
         SceneManager.LoadScene("Main Game");
+    }
+
+    public void GotoMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
