@@ -27,11 +27,19 @@ public abstract class Node : MonoBehaviour, INode
     protected SpriteRenderer spriteRenderer;
     public NodeMenu NodeMenu { get; set; }
 
+    protected float takingDamageSoundTimer = 0f;
+
     protected virtual void OnTriggerStay2D(Collider2D other)
     {
+        takingDamageSoundTimer += Time.deltaTime;
         if (other.tag == "Virus")
         {
             DecayCounter += Time.deltaTime * (Constants.VIRUS_DECAY_MULTIPLIER - VirusResistance);
+            if (takingDamageSoundTimer >= 1f)
+            {
+                SoundManager.Instance.PlayOneShot(SoundFile.NodeTakingDamage);
+                takingDamageSoundTimer = 0f;
+            }
         }
     }
 
@@ -49,10 +57,12 @@ public abstract class Node : MonoBehaviour, INode
             {
                 if (node as Object != this)
                 {
-                    node.ConnectTo(this);        
+                    node.ConnectTo(this);
+                    SoundManager.Instance.PlayOneShot(SoundFile.DidConnect);
                 }
                 else
                 {
+                    SoundManager.Instance.PlayOneShot(SoundFile.BadAction);
                     break;
                 }
             }
@@ -175,7 +185,12 @@ public abstract class Node : MonoBehaviour, INode
 
         if (Life <= 0)
         {
+            SoundManager.Instance.PlayOneShot(SoundFile.NodeDied1);
             DestroySelf();
+        }
+        if (Life == 20)
+        {
+            SoundManager.Instance.PlayOneShot(SoundFile.LowHealthAlert);
         }
         if (Life <= 20)
         {

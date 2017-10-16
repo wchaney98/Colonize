@@ -23,6 +23,7 @@ public class LevelUpMenu : MonoBehaviour
             node.Life -= Constants.LEVEL_UP_1_COST;
             node.VirusResistance = 1;
             node.MoveSpeed *= (float)1.5;
+            SoundManager.Instance.PlayOneShot(SoundFile.LevelUp);
         }
     }
 
@@ -34,6 +35,7 @@ public class LevelUpMenu : MonoBehaviour
             node.Life -= Constants.LEVEL_UP_2_COST;
             node.VirusResistance = 2;
             node.MoveSpeed *= (float)1.5;
+            SoundManager.Instance.PlayOneShot(SoundFile.LevelUp);
         }
     }
 
@@ -45,6 +47,7 @@ public class LevelUpMenu : MonoBehaviour
             node.Life -= Constants.LEVEL_UP_3_COST;
             node.VirusResistance = 3;
             node.MoveSpeed *= (float)1.5;
+            SoundManager.Instance.PlayOneShot(SoundFile.LevelUp);
         }
     }
 

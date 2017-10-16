@@ -14,7 +14,7 @@ public enum PlayerState
     BUILDING_AQUEDUCT
 }
 
-public class GameManager : MonoBehaviour 
+public class GameManager : MonoBehaviour
 {
     public static GameObject current;
 
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                 node.NodeMenu.ActivateForNode(node);
             }
         }
-        
+
     }
 
     public void SlowdownTime()
@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviour
         NodeManager = new NodeManager(this);
     }
 
-    void Start () 
-	{
+    void Start()
+    {
         current = gameObject;
         SelectedNodes = new List<INode>();
 
@@ -109,10 +109,10 @@ public class GameManager : MonoBehaviour
         CreateNode("A", -1.9f, 1.9f);
         CreateNode("A", -4.6f, -0.2f);
     }
-	
-	void Update () 
-	{
-    if (slowedDown && slowedDownTimePassed < Constants.ABILITY_SLOWDOWN_DURATION)
+
+    void Update()
+    {
+        if (slowedDown && slowedDownTimePassed < Constants.ABILITY_SLOWDOWN_DURATION)
         {
             Time.timeScale = Constants.ABILITY_SLOWDOWN_TIMESCALE;
             slowedDownTimePassed += Time.deltaTime;
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
                 foreach (INode node in SelectedNodes)
                 {
                     node.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                } 
+                }
             }
         }
 
@@ -215,9 +215,9 @@ public class GameManager : MonoBehaviour
             {
                 Vector3 connectedNodePos = cam.WorldToScreenPoint(connectedNode.Position);
                 VectorLine temp = VectorLine.SetLine(
-                    baseNode.ReceivingResources && baseNode as AqueductNode != null ? Color.yellow : Color.white, 
-                    Time.deltaTime, 
-                    new Vector2(baseNodePos.x + Random.Range(-1, 1), baseNodePos.y + Random.Range(-1, 1)), 
+                    baseNode.ReceivingResources && baseNode as AqueductNode != null ? Color.yellow : Color.white,
+                    Time.deltaTime,
+                    new Vector2(baseNodePos.x + Random.Range(-1, 1), baseNodePos.y + Random.Range(-1, 1)),
                     new Vector2(connectedNodePos.x + Random.Range(-1, 1), connectedNodePos.y + Random.Range(-1, 1)));
                 temp.SetWidth(1f);
                 temp.Draw();

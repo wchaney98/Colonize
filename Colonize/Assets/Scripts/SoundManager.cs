@@ -62,8 +62,11 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        if (!instance)
+        
+        if (instance == null)
         {
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("awake");
             instance = this;
             SoundEffects = new Dictionary<SoundFile, AudioClip>();
 
@@ -71,21 +74,17 @@ public class SoundManager : MonoBehaviour
             //Key = name of file, Value = file itself.
             Dictionary<string, AudioClip> clips = Resources.LoadAll<AudioClip>(Constants.AUDIO_FILE_LOCATION).ToDictionary(t => t.name);
 
-            Debug.Log(clips.Count);
-
             //Iterates through the loaded sound files and adds them to the Enum to AudioClip dictionary.
             foreach (KeyValuePair<string, AudioClip> c in clips)
             {
                 SoundEffects.Add((SoundFile)Enum.Parse(typeof(SoundFile), c.Key, true), c.Value);
             }
-            Debug.Log(SoundEffects.Count);
 
             //Creates a single sound effect source. Can play every sound in the game through this unless you want to have different effects
             //such as different pitch/volume for different sources.
             if (SoundEffectSource == null)
             {
                 SoundEffectSource = new GameObject("SoundEffectSource", typeof(AudioSource)).GetComponent<AudioSource>();
-                SoundEffectSource.transform.parent = Persistence.existing.gameObject.transform;
                 DontDestroyOnLoad(SoundEffectSource.gameObject);
             }
 
@@ -100,12 +99,12 @@ public class SoundManager : MonoBehaviour
 
             //ChangeBGM(Resources.Load<AudioClip>("Sound/Music/DancingMidgets"));
         }
-        else
+        else if (instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this);
             instance = this;
         }
-        Debug.Log("SES: " + SoundEffectSource);
+        //SoundEffectSource = GameObject.Find("SoundEffectSource").GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -125,10 +124,7 @@ public class SoundManager : MonoBehaviour
     public void PlayOneShot(SoundFile sound, float volumeScale = 1)
     {
         Debug.Log(SoundEffectSource.GetInstanceID());
-        if (SoundEffectSource != null)
-        {
-            SoundEffectSource.PlayOneShot(SoundEffects[sound], volumeScale * Constants.AUDIO_SOUND_EFFECT_VOLUME_MULTIPLIER);
-        }
+        SoundEffectSource.PlayOneShot(SoundEffects[sound], volumeScale * Constants.AUDIO_SOUND_EFFECT_VOLUME_MULTIPLIER);
     }
 
     /// <summary>
