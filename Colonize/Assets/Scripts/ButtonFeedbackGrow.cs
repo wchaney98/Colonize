@@ -8,7 +8,7 @@ public class ButtonFeedbackGrow : MonoBehaviour, IPointerEnterHandler, IPointerE
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        SoundManager.Instance.PlayOneShot(SoundFile.ButtonClick);
+        SoundManager.Instance.DoPlayOneShot(SoundFile.ButtonClick);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

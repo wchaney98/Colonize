@@ -29,6 +29,7 @@ public class AqueductNode : Node
 
     private float GatherCounter = 0;
     private float SecPerGather = 1.2f;
+    private float pulsatingGlowTimer = 0f;
     private bool gathering = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -130,7 +131,16 @@ public class AqueductNode : Node
         base.Update();
         if (gathering)
         {
-            spriteRenderer.color = new Color(0.2f, 1f, 1f, 1f);
+            if (pulsatingGlowTimer == 0)
+            {
+                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 1f), 0.2f);
+            }
+            if (pulsatingGlowTimer >= 0.2f)
+            {
+                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 1f), 0.2f);
+                pulsatingGlowTimer = 0f;
+            }
+            pulsatingGlowTimer += Time.deltaTime;
         }
     }
 

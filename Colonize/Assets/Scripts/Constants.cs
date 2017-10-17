@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 class Constants
 {
+    public static readonly Vector3 ZERO_VECTOR = Vector3.zero;
+
     public static readonly string AUDIO_FILE_LOCATION = @"Sounds";
     public static readonly float AUDIO_SOUND_EFFECT_VOLUME_MULTIPLIER = 1f;
 

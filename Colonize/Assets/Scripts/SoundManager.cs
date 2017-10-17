@@ -117,14 +117,23 @@ public class SoundManager : MonoBehaviour
         //BGMSource.pitch = Mathf.Lerp(soundPitchMin, soundPitchMax, (Time.timeScale - .5f) * 2);
     }
 
+
+    private Vector3 z {
+        get 
+            { 
+                return new Vector3(0, 0, 0);
+            } 
+        }
     /// <summary>
     /// Plays a single sound effect
     /// </summary>
     /// <param name="sound">The sound effect we want to play</param>
-    public void PlayOneShot(SoundFile sound, float volumeScale = 1)
+    public void DoPlayOneShot(SoundFile sound, Vector3? location = null, float volumeScale = 1)
     {
-        Debug.Log(SoundEffectSource.GetInstanceID());
-        SoundEffectSource.PlayOneShot(SoundEffects[sound], volumeScale * Constants.AUDIO_SOUND_EFFECT_VOLUME_MULTIPLIER);
+        if (location == null)
+            location = Vector3.zero;
+        //SoundEffectSource.PlayOneShot(SoundEffects[sound], volumeScale * Constants.AUDIO_SOUND_EFFECT_VOLUME_MULTIPLIER);
+        AudioSource.PlayClipAtPoint(SoundEffects[sound], (Vector3)location, volumeScale * Constants.AUDIO_SOUND_EFFECT_VOLUME_MULTIPLIER);
     }
 
     /// <summary>

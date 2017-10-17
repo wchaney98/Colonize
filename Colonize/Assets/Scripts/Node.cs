@@ -37,7 +37,7 @@ public abstract class Node : MonoBehaviour, INode
             DecayCounter += Time.deltaTime * (Constants.VIRUS_DECAY_MULTIPLIER - VirusResistance);
             if (takingDamageSoundTimer >= 1f)
             {
-                SoundManager.Instance.PlayOneShot(SoundFile.NodeTakingDamage);
+                SoundManager.Instance.DoPlayOneShot(SoundFile.NodeTakingDamage, Position);
                 takingDamageSoundTimer = 0f;
             }
         }
@@ -58,11 +58,11 @@ public abstract class Node : MonoBehaviour, INode
                 if (node as Object != this)
                 {
                     node.ConnectTo(this);
-                    SoundManager.Instance.PlayOneShot(SoundFile.DidConnect);
+                    SoundManager.Instance.DoPlayOneShot(SoundFile.DidConnect, Position);
                 }
                 else
                 {
-                    SoundManager.Instance.PlayOneShot(SoundFile.BadAction);
+                    SoundManager.Instance.DoPlayOneShot(SoundFile.BadAction, Position);
                     break;
                 }
             }
@@ -185,12 +185,12 @@ public abstract class Node : MonoBehaviour, INode
 
         if (Life <= 0)
         {
-            SoundManager.Instance.PlayOneShot(SoundFile.NodeDied1);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.NodeDied1, Position);
             DestroySelf();
         }
         if (Life == 20)
         {
-            SoundManager.Instance.PlayOneShot(SoundFile.LowHealthAlert);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.LowHealthAlert, Position);
         }
         if (Life <= 20)
         {

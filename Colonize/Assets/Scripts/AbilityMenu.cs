@@ -25,10 +25,10 @@ public class AbilityMenu : MonoBehaviour
         {
             GameManager.SlowdownTime();
             SlowdownCooldownRemaining = Constants.ABILITY_SLOWDOWN_COOLDOWN;
-            SoundManager.Instance.PlayOneShot(SoundFile.UsedPowerUp);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.UsedPowerUp);
         }
         else
-            SoundManager.Instance.PlayOneShot(SoundFile.BadAction);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.BadAction);
     }
 
     public void SurplusAbility()
@@ -37,10 +37,10 @@ public class AbilityMenu : MonoBehaviour
         {
             GameManager.GiveLifeToAll(Constants.ABILITY_SURPLUS_AMOUNT);
             SurplusCooldownRemaining = Constants.ABILITY_SURPLUS_COOLDOWN;
-            SoundManager.Instance.PlayOneShot(SoundFile.UsedPowerUp);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.UsedPowerUp);
         }
         else
-            SoundManager.Instance.PlayOneShot(SoundFile.BadAction);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.BadAction);
     }
 
     public void DestroyVirusesAbility()
@@ -49,10 +49,10 @@ public class AbilityMenu : MonoBehaviour
         {
             GameManager.ResetViruses();
             DestroyVirusesCooldownRemaining = Constants.ABILITY_DESTROY_VIRUSES_COOLDOWN;
-            SoundManager.Instance.PlayOneShot(SoundFile.UsedPowerUp);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.UsedPowerUp);
         }
         else
-            SoundManager.Instance.PlayOneShot(SoundFile.BadAction);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.BadAction);
     }
 
     public void TenTimesAbility()
@@ -61,10 +61,10 @@ public class AbilityMenu : MonoBehaviour
         {
             Persistence.existing.TenTimesAbilityActive = true;
             TenTimesCooldownRemaining = Constants.ABILITY_TEN_TIMES_COOLDOWN;
-            SoundManager.Instance.PlayOneShot(SoundFile.UsedPowerUp);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.UsedPowerUp);
         }
         else
-            SoundManager.Instance.PlayOneShot(SoundFile.BadAction);
+            SoundManager.Instance.DoPlayOneShot(SoundFile.BadAction);
     }
 
     void Start()
