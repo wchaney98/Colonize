@@ -16,8 +16,10 @@ public class AbilityMenu : MonoBehaviour
 
     private float SlowdownCooldownRemaining = 0f;
     private float SurplusCooldownRemaining = 0f;
-    private float DestroyVirusesCooldownRemaining = 0f;
+    private float DestroyVirusesCooldownRemaining = 60f;
     private float TenTimesCooldownRemaining = 0f;
+
+    private bool dPadDown = false;
 
     public void SlowdownAbility()
     {
@@ -74,20 +76,29 @@ public class AbilityMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(Persistence.existing.Controls["SlowTimeKey"]))
+        if (Input.GetAxis("J_DpadVertical") == 0 && Input.GetAxis("J_DpadHorizontal") == 0)
         {
+            dPadDown = false;
+        }
+
+        if (Input.GetKeyDown(Persistence.existing.Controls["SlowTimeKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == -1))
+        {
+            dPadDown = true;
             SlowdownAbility();
         }
-        if (Input.GetKeyDown(Persistence.existing.Controls["SurplusKey"]))
+        if (Input.GetKeyDown(Persistence.existing.Controls["SurplusKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == 1))
         {
+            dPadDown = true;
             SurplusAbility();
         }
-        if (Input.GetKeyDown(Persistence.existing.Controls["DestroyVirusesKey"]))
+        if (Input.GetKeyDown(Persistence.existing.Controls["DestroyVirusesKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == 1))
         {
+            dPadDown = true;
             DestroyVirusesAbility();
         }
-        if (Input.GetKeyDown(Persistence.existing.Controls["TenTimesResourceKey"]))
+        if (Input.GetKeyDown(Persistence.existing.Controls["TenTimesResourceKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == -1))
         {
+            dPadDown = true;
             TenTimesAbility();
         }
 

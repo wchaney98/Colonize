@@ -17,6 +17,7 @@ public interface INode
     NodeMenu NodeMenu { get; set; }
 
     void ConnectTo(INode otherNode);
+    void OnMouseDown();
     void MoveTo(Vector2 mousePos);
     void AddConnectedNode(INode otherNode);
     void DisconnectFrom(INode otherNode);

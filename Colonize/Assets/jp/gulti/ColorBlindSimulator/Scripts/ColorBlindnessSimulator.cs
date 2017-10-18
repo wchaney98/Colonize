@@ -11,6 +11,8 @@ namespace jp.gulti.ColorBlind
         {
             Protanope,
             Deuteranope,
+            Tritanope,
+            Monochromacy
         }
         [SerializeField]
         public ColorBlindMode BlindMode = ColorBlindMode.Protanope;
@@ -21,6 +23,9 @@ namespace jp.gulti.ColorBlind
         [SerializeField]
         public Shader ColorBlindShader;
         private Material ColorBlindMat;
+
+        private readonly Material[] materials = new Material[2];
+        private bool off = false;
 
         public static readonly string ColorBlindShaderName = "Hidden/GULTI/ColorBlindSimulator";
 
@@ -38,10 +43,17 @@ namespace jp.gulti.ColorBlind
 
         #region Monobehavior
 
+        private void Awake()
+        {
+            materials[0] = new Material(Shader.Find("Hidden/Tritanopia"));
+            materials[1] = new Material(Shader.Find("Hidden/Monochromacy"));
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
+                BlindMode = ColorBlindMode.Protanope;
                 BlindIntensity = 0f;
             }
             if (Input.GetKeyDown(KeyCode.F2))
@@ -53,6 +65,18 @@ namespace jp.gulti.ColorBlind
             if (Input.GetKeyDown(KeyCode.F3))
             {
                 BlindMode = ColorBlindMode.Deuteranope;
+                BlindIntensity = 1.0f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F4))
+            {
+                BlindMode = ColorBlindMode.Tritanope;
+                BlindIntensity = 1.0f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F5))
+            {
+                BlindMode = ColorBlindMode.Monochromacy;
                 BlindIntensity = 1.0f;
             }
         }
@@ -80,7 +104,7 @@ namespace jp.gulti.ColorBlind
                     return;
                 }
             }
-
+            Material temp;
             switch (BlindMode)
             {
                 case ColorBlindMode.Protanope:
@@ -89,6 +113,16 @@ namespace jp.gulti.ColorBlind
                 case ColorBlindMode.Deuteranope:
                     ColorBlindMat.shaderKeywords = new string[] { "CB_TYPE_TWO" };
                     break;
+                case ColorBlindMode.Tritanope:
+                    temp = materials[0];
+                    temp.SetFloat("_BlindIntensity", BlindIntensity);
+                    Graphics.Blit(_src, _dst, materials[0]);
+                    return;
+                case ColorBlindMode.Monochromacy:
+                    temp = materials[1];
+                    temp.SetFloat("_BlindIntensity", BlindIntensity);
+                    Graphics.Blit(_src, _dst, materials[1]);
+                    return;
             }
 
             //Intensity Set

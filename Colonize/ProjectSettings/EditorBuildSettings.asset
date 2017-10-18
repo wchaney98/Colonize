@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Options.unity
     guid: 943a90eafdde79943965d6c1580a8df2
+  - enabled: 1
+    path: Assets/Scenes/Controller Options.unity
+    guid: a750622fcfe44a748b527aff81d02268

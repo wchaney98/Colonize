@@ -133,11 +133,14 @@ public class AqueductNode : Node
         {
             if (pulsatingGlowTimer == 0)
             {
-                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 1f), 0.2f);
+                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 0.8f), 0.5f);
             }
-            if (pulsatingGlowTimer >= 0.2f)
+            if (pulsatingGlowTimer >= 0.5f)
             {
-                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 1f), 0.2f);
+                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 1f), 0.5f);
+            }
+            if (pulsatingGlowTimer >= 1f)
+            {
                 pulsatingGlowTimer = 0f;
             }
             pulsatingGlowTimer += Time.deltaTime;

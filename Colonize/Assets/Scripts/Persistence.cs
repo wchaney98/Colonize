@@ -12,6 +12,12 @@ public class Persistence : MonoBehaviour
     public Dictionary<string, string> Controls;
     public Dictionary<string, string> ControllerControls;
 
+    public Vector2 GetMainStickData()
+    {
+        return new Vector2(Input.GetAxis("J_MainHorizontal"),
+                           Input.GetAxis("J_MainVertical"));
+    }
+
     void Awake ()
     { 
         if (existing == null)
@@ -28,21 +34,14 @@ public class Persistence : MonoBehaviour
                 { "SurplusKey", "t" },
                 { "DestroyVirusesKey", "f" },
                 { "TenTimesResourceKey", "g" },
-                { "ProtanopeToggle", "F1" },
-                { "DeuteranopeToggle", "F2" }
             };
 
             ControllerControls = new Dictionary<string, string>
             {
-                { "ConnectKey", "c" },
-                { "LevelUpKey", "l" },
-                { "SlowTimeKey", "r" },
-                { "SurplusKey", "t" },
-                { "DestroyVirusesKey", "f" },
-                { "TenTimesResourceKey", "g" },
-                { "ProtanopeToggle", "F1" },
-                { "DeuteranopeToggle", "F2" },
-                { "SelectClosest", "J_Y" }
+                { "ConnectKey", "J_X" },
+                { "LevelUpKey", "J_Y" }, 
+                { "SelectClosest", "J_A" },
+                { "MoveSelected", "J_Triggers" },
             };
         }
         else if (existing != this)
@@ -51,7 +50,17 @@ public class Persistence : MonoBehaviour
         }
 	}
 
+    private void Start()
+    {
+        CheckControllerConnection();
+    }
+
     private void Update()
+    {
+        CheckControllerConnection();
+    }
+
+    public bool CheckControllerConnection()
     {
         string[] temp = Input.GetJoystickNames();
         if (temp.Length > 0)
@@ -69,5 +78,6 @@ public class Persistence : MonoBehaviour
                 ControllerIsConnected = false;
             }
         }
+        return ControllerIsConnected;
     }
 }

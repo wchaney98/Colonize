@@ -1040,6 +1040,8 @@ MonoBehaviour:
   VirusPrefab: {fileID: 1847427336489154, guid: adf6070e89bf6be4d92d7d7ffd682f79,
     type: 2}
   HelpPanel: {fileID: 684814655}
+  ControllerCursor: {fileID: 1453090871789182, guid: 666d187160a5bba489cb2b7c67346d33,
+    type: 2}
 --- !u!114 &496509817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4683,8 +4685,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
+  m_VerticalAxis: J_MainVertical
+  m_SubmitButton: J_A
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
@@ -4700,7 +4702,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1503895253}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
 --- !u!4 &2129852305

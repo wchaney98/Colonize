@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public GameObject VirusPrefab;
     public GameObject HelpPanel;
 
+    public GameObject ControllerCursor;
+    private GameObject controllerCursor;
+
     public NodeManager NodeManager;
     private Camera cam;
 
@@ -41,6 +44,8 @@ public class GameManager : MonoBehaviour
     private float slowedDownTimePassed = 0f;
 
     private float tenTimesAbilityTime = 0f;
+
+    private bool rightTriggerDown = false;
 
     public void ProcessSelection(Vector2 point1, Vector2 point2)
     {
@@ -101,6 +106,11 @@ public class GameManager : MonoBehaviour
         cam = GetComponent<Camera>();
         HelpPanel.SetActive(false);
 
+        if (Persistence.existing.ControllerIsConnected)
+        {
+            controllerCursor = Instantiate(ControllerCursor, Vector3.zero, Quaternion.identity);
+        }
+
         // FOR THIS VER ONLY
         CreateNode("B", -0.5f, -2.5f);
         CreateNode("B", 3.8f, -0.5f);
@@ -134,8 +144,7 @@ public class GameManager : MonoBehaviour
             Persistence.existing.TenTimesAbilityActive = false;
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("J_Start"))
         {
             paused = !paused;
             if (paused)
@@ -165,16 +174,38 @@ public class GameManager : MonoBehaviour
             virusSpawnRate += 2f;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || (!rightTriggerDown && Input.GetAxisRaw(Persistence.existing.ControllerControls["MoveSelected"]) < -0.1f))
         {
+            rightTriggerDown = true;
             if (PlayerState == PlayerState.FREE && SelectedNodes != null)
             {
                 Debug.Log("Attempting move (RIGHT CLICK)");
                 foreach (INode node in SelectedNodes)
                 {
-                    node.MoveTo(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    node.MoveTo(Persistence.existing.ControllerIsConnected ? controllerCursor.transform.position : Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 }
             }
+        }
+
+        if (Input.GetAxisRaw(Persistence.existing.ControllerControls["MoveSelected"]) == 0)
+            rightTriggerDown = false;
+
+        if (Input.GetButtonDown(Persistence.existing.ControllerControls["SelectClosest"]))
+        {
+            INode closestNode = GetClosestNode();
+            if (GetClosestNode() != null)
+                closestNode.OnMouseDown();
+        }
+
+        if (Input.GetButtonDown(Persistence.existing.ControllerControls["ConnectKey"]) && SelectedNodes.Count != 0)
+        {
+            INode closestNode = GetClosestNode();
+            if (closestNode != null)
+            {
+                PlayerState = PlayerState.CONNECTING;
+                closestNode.OnMouseDown();
+            }
+                
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -241,5 +272,21 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         Time.timeScale = 1f;
+    }
+
+    private INode GetClosestNode()
+    {
+        INode closestNode = null;
+        float smallestDistance = 1000f;
+        foreach (INode node in NodeManager.Nodes)
+        {
+            float distance = Vector2.Distance(node.Position, controllerCursor.transform.position);
+            if (distance < smallestDistance)
+            {
+                closestNode = node;
+                smallestDistance = distance;
+            }
+        }
+        return closestNode;
     }
 }

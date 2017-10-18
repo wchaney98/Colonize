@@ -29,6 +29,8 @@ public abstract class Node : MonoBehaviour, INode
 
     protected float takingDamageSoundTimer = 0f;
 
+    private bool lowHealthSoundPlayed = false;
+
     protected virtual void OnTriggerStay2D(Collider2D other)
     {
         takingDamageSoundTimer += Time.deltaTime;
@@ -43,7 +45,7 @@ public abstract class Node : MonoBehaviour, INode
         }
     }
 
-    protected virtual void OnMouseDown()
+    public virtual void OnMouseDown()
     {
         if (NodeMenu.GameManager.PlayerState == PlayerState.FREE)
         {
@@ -74,7 +76,7 @@ public abstract class Node : MonoBehaviour, INode
 
     protected void OnMouseOver()
     {
-        spriteRenderer.color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
+        spriteRenderer.color = new Color(0.9f, 0.9f, 0.9f, 0.9f);
     }
 
     protected void OnMouseExit()
@@ -188,9 +190,10 @@ public abstract class Node : MonoBehaviour, INode
             SoundManager.Instance.DoPlayOneShot(SoundFile.NodeDied1, Position);
             DestroySelf();
         }
-        if (Life == 20)
+        if (Life == 20 && !lowHealthSoundPlayed)
         {
             SoundManager.Instance.DoPlayOneShot(SoundFile.LowHealthAlert, Position);
+            lowHealthSoundPlayed = true;
         }
         if (Life <= 20)
         {
@@ -203,12 +206,13 @@ public abstract class Node : MonoBehaviour, INode
 
         if (NodeMenu.GameManager.SelectedNodes.Contains(this))
         {
-            spriteRenderer.color = new Color(1f, 1f, 0.2f, 1f);
+            //spriteRenderer.color = new Color(0.9f, 0.9f, 0.2f, 1f);
+            iTween.ColorUpdate(gameObject, new Color(0.9f, 0.9f, 0.2f, 0.95f), 1f);
         }
 
         else
         {
-            spriteRenderer.color = Color.white;
+            iTween.ColorUpdate(gameObject, Color.white, 0.2f);
         }
     }
 

@@ -1,13 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour 
 {
+    EventSystem es;
+    GameObject playButton;
+
     private void Start()
     {
         Time.timeScale = 1f;
+        EventSystem es = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        playButton = GameObject.Find("Play");
+
+        if (!Persistence.existing.CheckControllerConnection())
+            es.firstSelectedGameObject = null;
+        else
+            es.firstSelectedGameObject = playButton;
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void Play()
@@ -22,7 +38,10 @@ public class MainMenu : MonoBehaviour
 
     public void Options()
     {
-        SceneManager.LoadScene("Options");
+        if (Persistence.existing.ControllerIsConnected)
+            SceneManager.LoadScene("Controller Options");
+        else
+            SceneManager.LoadScene("Options");
     }
 
     public void Credits()

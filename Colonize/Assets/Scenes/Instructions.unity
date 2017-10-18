@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
+  m_VerticalAxis: J_MainVertical
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
@@ -634,6 +634,7 @@ GameObject:
   - component: {fileID: 1851615674}
   - component: {fileID: 1851615673}
   - component: {fileID: 1851615672}
+  - component: {fileID: 1851615677}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -711,6 +712,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1851615677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1851615671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a278c170c06948148a2f2714225036d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1946559200
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,8 +755,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -216.62518}
-  m_SizeDelta: {x: 861.6, y: 992.1}
+  m_AnchoredPosition: {x: 0, y: -354.4}
+  m_SizeDelta: {x: 861.6, y: 1267.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946559202
 MonoBehaviour:
@@ -794,12 +806,20 @@ MonoBehaviour:
     in the bottom left with cooldowns:\n\tT: Time slowdown for 4 seconds\n\tS: Grant
     all Nodes +10 Life\n\tV: Destroy all Viruses <b>(only usable after 1 minute)</b>\n\t10:
     Next resource gather grants 10x more\n\n<size=20>Known Bugs</size>\n\n\tConnections
-    do not always light up properly when resources are transferred\n\n<size=20>New
-    Features</size>\n\t<b>Multi-unit selection</b> : Click and drag to select multiple
-    nodes. Actions are applied to all selected nodes.\n\t<b>Configurable controls</b>
-    : Goto options to change hotkeys for various actions\n\t<b>3 UI text changes</b>
-    : Consistent font style across game. Better layout of instructions page. Node
-    life \t\n\tpercentages turn red once it reaches 20% or lower "
+    do not always light up properly when resources are transferred\n\tSounds don't
+    play in the 2nd scene you've loaded...\n\tSometimes aqueduct nodes will stay blue
+    if a resource cloud has moved\n\tCan't scroll this page with a controller \n\n<size=20>New
+    Features</size>\n\r\n\t<b>Deaf support</b> :\r\n  \t\tadded sounds in the first
+    place\n  \t\tall buttons grow when hovered over and change color when pressed\n\t\tnode
+    life text red at 20\r%\n\t\tdeaf players should be able to experience this state
+    of the game the same as non-deaf players\n\t\t(more sounds, music, in the works..)\n\r\n\t<b>Controller
+    support</b> :\r\n  \t\t1 controller layout\r at the moment for xbox 360\n\r\n\t<b>Color
+    improvements</b> :\r\n\t\tMain menu button highlighting \n  \t\tChanged aqueduct
+    node sprite to be more distinguishable \n  \t\tChanged aqueduct node to higher
+    contrast color\r\n \t\tResource nodes highlight blue when gathering resources...
+    now has pulsating glow\r\n \t\tSelected nodes were instantly highlighted yellow...
+    changed to tween to a more noticeable color\n\n\t<b>Extra credt</b> :\n\t\tTritanope:
+    F4\n\t\tMonochromacy: F5"
 --- !u!222 &1946559203
 CanvasRenderer:
   m_ObjectHideFlags: 0
