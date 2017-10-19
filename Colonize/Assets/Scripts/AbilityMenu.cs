@@ -61,7 +61,7 @@ public class AbilityMenu : MonoBehaviour
     {
         if (TenTimesCooldownRemaining <= 0f)
         {
-            Persistence.existing.TenTimesAbilityActive = true;
+            Persistence.Instance.TenTimesAbilityActive = true;
             TenTimesCooldownRemaining = Constants.ABILITY_TEN_TIMES_COOLDOWN;
             SoundManager.Instance.DoPlayOneShot(SoundFile.UsedPowerUp);
         }
@@ -81,22 +81,22 @@ public class AbilityMenu : MonoBehaviour
             dPadDown = false;
         }
 
-        if (Input.GetKeyDown(Persistence.existing.Controls["SlowTimeKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == -1))
+        if (Input.GetKeyDown(Persistence.Instance.Controls["SlowTimeKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == -1))
         {
             dPadDown = true;
             SlowdownAbility();
         }
-        if (Input.GetKeyDown(Persistence.existing.Controls["SurplusKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == 1))
+        if (Input.GetKeyDown(Persistence.Instance.Controls["SurplusKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == 1))
         {
             dPadDown = true;
             SurplusAbility();
         }
-        if (Input.GetKeyDown(Persistence.existing.Controls["DestroyVirusesKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == 1))
+        if (Input.GetKeyDown(Persistence.Instance.Controls["DestroyVirusesKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == 1))
         {
             dPadDown = true;
             DestroyVirusesAbility();
         }
-        if (Input.GetKeyDown(Persistence.existing.Controls["TenTimesResourceKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == -1))
+        if (Input.GetKeyDown(Persistence.Instance.Controls["TenTimesResourceKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == -1))
         {
             dPadDown = true;
             TenTimesAbility();
@@ -127,7 +127,7 @@ public class AbilityMenu : MonoBehaviour
             TenTimesButton.GetComponent<Image>().fillAmount = (Constants.ABILITY_TEN_TIMES_COOLDOWN - TenTimesCooldownRemaining) / Constants.ABILITY_TEN_TIMES_COOLDOWN;
         }
 
-        DestroyVirusesButton.GetComponent<Button>().interactable = Persistence.existing.Time >= 60f;
+        DestroyVirusesButton.GetComponent<Button>().interactable = Persistence.Instance.Time >= 60f;
         
     }
 }

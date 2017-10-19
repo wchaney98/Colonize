@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Persistence : MonoBehaviour 
+public class Persistence : SingletonBehavior<Persistence>
 {
-    public static Persistence existing;
     public float Time { get; set; }
     public bool TenTimesAbilityActive { get; set; }
     public bool ControllerIsConnected { get; set; }
-    
+
     public Dictionary<string, string> Controls;
     public Dictionary<string, string> ControllerControls;
 
@@ -18,15 +17,9 @@ public class Persistence : MonoBehaviour
                            Input.GetAxis("J_MainVertical"));
     }
 
-    void Awake ()
-    { 
-        if (existing == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            existing = this;
-
-            // load this from a file later...
-            Controls = new Dictionary<string, string>
+    protected override void Init()
+    {
+        Controls = new Dictionary<string, string>
             {
                 { "ConnectKey", "c" },
                 { "LevelUpKey", "l" },
@@ -36,19 +29,14 @@ public class Persistence : MonoBehaviour
                 { "TenTimesResourceKey", "g" },
             };
 
-            ControllerControls = new Dictionary<string, string>
+        ControllerControls = new Dictionary<string, string>
             {
                 { "ConnectKey", "J_X" },
-                { "LevelUpKey", "J_Y" }, 
+                { "LevelUpKey", "J_Y" },
                 { "SelectClosest", "J_A" },
                 { "MoveSelected", "J_Triggers" },
             };
-        }
-        else if (existing != this)
-        {
-            Destroy(gameObject);
-        }
-	}
+    }
 
     private void Start()
     {

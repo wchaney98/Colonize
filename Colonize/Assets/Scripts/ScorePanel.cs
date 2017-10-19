@@ -13,6 +13,6 @@ public class ScorePanel : MonoBehaviour
 	
 	void Update () 
 	{
-        textObj.text = "TIME: " + Persistence.existing.Time;
+        textObj.text = "TIME: " + Persistence.Instance.Time;
 	}
 }

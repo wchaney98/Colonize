@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
         EventSystem es = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         playButton = GameObject.Find("Play");
 
-        if (!Persistence.existing.CheckControllerConnection())
+        if (!Persistence.Instance.CheckControllerConnection())
             es.firstSelectedGameObject = null;
         else
             es.firstSelectedGameObject = playButton;
@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour
 
     public void Options()
     {
-        if (Persistence.existing.ControllerIsConnected)
+        if (Persistence.Instance.ControllerIsConnected)
             SceneManager.LoadScene("Controller Options");
         else
             SceneManager.LoadScene("Options");

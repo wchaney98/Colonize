@@ -7,7 +7,7 @@ public class ControllerBackButton : MonoBehaviour
 {
     void Update()
     {
-        if (Persistence.existing.ControllerIsConnected && Input.GetButtonDown("J_B"))
+        if (Persistence.Instance.ControllerIsConnected && Input.GetButtonDown("J_B"))
             SceneManager.LoadScene("Main Menu");
     }
 }

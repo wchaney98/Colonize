@@ -51,7 +51,7 @@ public class AqueductNode : Node
         {
             if (other.tag == "Resource" && other.gameObject.GetComponent<Resource>().Gatherer as Object == this)
             {
-                if (Persistence.existing.TenTimesAbilityActive)
+                if (Persistence.Instance.TenTimesAbilityActive)
                 {
                     GatherAndTransferResources(Constants.NORMAL_AQUEDUCT_LIFE_PER_GATHER * 10);
                 }

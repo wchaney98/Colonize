@@ -27,9 +27,8 @@ public enum SoundFile
 }
 # endregion
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : SingletonBehavior<SoundManager>
 {
-    static SoundManager instance;
     float soundPitchMin = .75f;
     float soundPitchMax = 1.0f;
 
@@ -51,60 +50,38 @@ public class SoundManager : MonoBehaviour
     private static AudioSource BGMSource
     { get; set; }
 
-    /// <summary>
-    /// Singleton for the audiomanager class
-    /// </summary>
-    public static SoundManager Instance
-    { get { return instance; } }
-
-    /// <summary>
-    /// Constructor for the audiomanager
-    /// </summary>
-    private void Awake()
+    protected override void Init()
     {
-        
-        if (instance == null)
+        SoundEffects = new Dictionary<SoundFile, AudioClip>();
+
+        //Create a temporary dictionary that loads all of the Audio files from a specific location.
+        //Key = name of file, Value = file itself.
+        Dictionary<string, AudioClip> clips = Resources.LoadAll<AudioClip>(Constants.AUDIO_FILE_LOCATION).ToDictionary(t => t.name);
+
+        //Iterates through the loaded sound files and adds them to the Enum to AudioClip dictionary.
+        foreach (KeyValuePair<string, AudioClip> c in clips)
         {
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("awake");
-            instance = this;
-            SoundEffects = new Dictionary<SoundFile, AudioClip>();
-
-            //Create a temporary dictionary that loads all of the Audio files from a specific location.
-            //Key = name of file, Value = file itself.
-            Dictionary<string, AudioClip> clips = Resources.LoadAll<AudioClip>(Constants.AUDIO_FILE_LOCATION).ToDictionary(t => t.name);
-
-            //Iterates through the loaded sound files and adds them to the Enum to AudioClip dictionary.
-            foreach (KeyValuePair<string, AudioClip> c in clips)
-            {
-                SoundEffects.Add((SoundFile)Enum.Parse(typeof(SoundFile), c.Key, true), c.Value);
-            }
-
-            //Creates a single sound effect source. Can play every sound in the game through this unless you want to have different effects
-            //such as different pitch/volume for different sources.
-            if (SoundEffectSource == null)
-            {
-                SoundEffectSource = new GameObject("SoundEffectSource", typeof(AudioSource)).GetComponent<AudioSource>();
-                DontDestroyOnLoad(SoundEffectSource.gameObject);
-            }
-
-            //Creates a single background music source.
-            if (BGMSource == null)
-            {
-                BGMSource = new GameObject("BGMSource", typeof(AudioSource)).GetComponent<AudioSource>();
-                BGMSource.volume = .5f;
-                BGMSource.loop = true;
-                DontDestroyOnLoad(BGMSource.gameObject);
-            }
-
-            //ChangeBGM(Resources.Load<AudioClip>("Sound/Music/DancingMidgets"));
+            SoundEffects.Add((SoundFile)Enum.Parse(typeof(SoundFile), c.Key, true), c.Value);
         }
-        else if (instance != this)
+
+        //Creates a single sound effect source. Can play every sound in the game through this unless you want to have different effects
+        //such as different pitch/volume for different sources.
+        if (SoundEffectSource == null)
         {
-            Destroy(this);
-            instance = this;
+            SoundEffectSource = new GameObject("SoundEffectSource", typeof(AudioSource)).GetComponent<AudioSource>();
+            DontDestroyOnLoad(SoundEffectSource.gameObject);
         }
-        //SoundEffectSource = GameObject.Find("SoundEffectSource").GetComponent<AudioSource>();
+
+        //Creates a single background music source.
+        if (BGMSource == null)
+        {
+            BGMSource = new GameObject("BGMSource", typeof(AudioSource)).GetComponent<AudioSource>();
+            BGMSource.volume = .5f;
+            BGMSource.loop = true;
+            DontDestroyOnLoad(BGMSource.gameObject);
+        }
+
+        //ChangeBGM(Resources.Load<AudioClip>("Sound/Music/DancingMidgets"));
     }
 
     /// <summary>
@@ -117,13 +94,6 @@ public class SoundManager : MonoBehaviour
         //BGMSource.pitch = Mathf.Lerp(soundPitchMin, soundPitchMax, (Time.timeScale - .5f) * 2);
     }
 
-
-    private Vector3 z {
-        get 
-            { 
-                return new Vector3(0, 0, 0);
-            } 
-        }
     /// <summary>
     /// Plays a single sound effect
     /// </summary>

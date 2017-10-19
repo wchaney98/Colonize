@@ -48,41 +48,41 @@ public class OptionsMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;          
                 string marker = "";
-                foreach (var key in Persistence.existing.Controls)
+                foreach (var key in Persistence.Instance.Controls)
                 {
                     if (key.Value == Input.inputString)
                     {
                         marker = key.Key;
                     }
                 }
-                Persistence.existing.Controls[marker] = "";
+                Persistence.Instance.Controls[marker] = "";
 
                 currentButtonText.text = Input.inputString;
 
                 // :(
                 if (currentButtonText == ConnectKeyButtonText)
                 {
-                    Persistence.existing.Controls["ConnectKey"] = Input.inputString;
+                    Persistence.Instance.Controls["ConnectKey"] = Input.inputString;
                 }
                 else if (currentButtonText == LevelUpKeyButtonText)
                 {
-                    Persistence.existing.Controls["LevelUpKey"] = Input.inputString;
+                    Persistence.Instance.Controls["LevelUpKey"] = Input.inputString;
                 }
                 else if (currentButtonText == SlowTimeKeyButtonText)
                 {
-                    Persistence.existing.Controls["SlowTimeKey"] = Input.inputString;
+                    Persistence.Instance.Controls["SlowTimeKey"] = Input.inputString;
                 }
                 else if (currentButtonText == SurplusKeyButtonText)
                 {
-                    Persistence.existing.Controls["SurplusKey"] = Input.inputString;
+                    Persistence.Instance.Controls["SurplusKey"] = Input.inputString;
                 }
                 else if (currentButtonText == DestroyVirusesKeyButtonText)
                 {
-                    Persistence.existing.Controls["DestroyVirusesKey"] = Input.inputString;
+                    Persistence.Instance.Controls["DestroyVirusesKey"] = Input.inputString;
                 }
                 else if (currentButtonText == TenTimesResourceKeyButtonText)
                 {
-                    Persistence.existing.Controls["TenTimesResourceKey"] = Input.inputString;
+                    Persistence.Instance.Controls["TenTimesResourceKey"] = Input.inputString;
                 }
 
                 waitingForNewKey = false;
@@ -134,21 +134,21 @@ public class OptionsMenu : MonoBehaviour
         DestroyVirusesKeyButtonText = DestroyVirusesKey.transform.GetChild(2).GetChild(0).GetComponent<Text>();
         TenTimesResourceKeyButtonText = TenTimesResourceKey.transform.GetChild(2).GetChild(0).GetComponent<Text>();
 
-        ConnectKeyText.text = Persistence.existing.Controls["ConnectKey"];
-        LevelUpKeyText.text = Persistence.existing.Controls["LevelUpKey"];
-        SlowTimeKeyText.text = Persistence.existing.Controls["SlowTimeKey"];
-        SurplusKeyText.text = Persistence.existing.Controls["SurplusKey"];
-        DestroyVirusesKeyText.text = Persistence.existing.Controls["DestroyVirusesKey"];
-        TenTimesResourceKeyText.text = Persistence.existing.Controls["TenTimesResourceKey"];
+        ConnectKeyText.text = Persistence.Instance.Controls["ConnectKey"];
+        LevelUpKeyText.text = Persistence.Instance.Controls["LevelUpKey"];
+        SlowTimeKeyText.text = Persistence.Instance.Controls["SlowTimeKey"];
+        SurplusKeyText.text = Persistence.Instance.Controls["SurplusKey"];
+        DestroyVirusesKeyText.text = Persistence.Instance.Controls["DestroyVirusesKey"];
+        TenTimesResourceKeyText.text = Persistence.Instance.Controls["TenTimesResourceKey"];
     }
 
     void UpdateStrings()
     {
-        ConnectKeyText.text = Persistence.existing.Controls["ConnectKey"];
-        LevelUpKeyText.text = Persistence.existing.Controls["LevelUpKey"];
-        SlowTimeKeyText.text = Persistence.existing.Controls["SlowTimeKey"];
-        SurplusKeyText.text = Persistence.existing.Controls["SurplusKey"];
-        DestroyVirusesKeyText.text = Persistence.existing.Controls["DestroyVirusesKey"];
-        TenTimesResourceKeyText.text = Persistence.existing.Controls["TenTimesResourceKey"];
+        ConnectKeyText.text = Persistence.Instance.Controls["ConnectKey"];
+        LevelUpKeyText.text = Persistence.Instance.Controls["LevelUpKey"];
+        SlowTimeKeyText.text = Persistence.Instance.Controls["SlowTimeKey"];
+        SurplusKeyText.text = Persistence.Instance.Controls["SurplusKey"];
+        DestroyVirusesKeyText.text = Persistence.Instance.Controls["DestroyVirusesKey"];
+        TenTimesResourceKeyText.text = Persistence.Instance.Controls["TenTimesResourceKey"];
     }
 }

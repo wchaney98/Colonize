@@ -100,13 +100,13 @@ public class GameManager : MonoBehaviour
         current = gameObject;
         SelectedNodes = new List<INode>();
 
-        Persistence.existing.Time = 0;
-        Persistence.existing.TenTimesAbilityActive = false;
+        Persistence.Instance.Time = 0;
+        Persistence.Instance.TenTimesAbilityActive = false;
         PlayerState = PlayerState.FREE;
         cam = GetComponent<Camera>();
         HelpPanel.SetActive(false);
 
-        if (Persistence.existing.ControllerIsConnected)
+        if (Persistence.Instance.ControllerIsConnected)
         {
             controllerCursor = Instantiate(ControllerCursor, Vector3.zero, Quaternion.identity);
         }
@@ -134,14 +134,14 @@ public class GameManager : MonoBehaviour
             slowedDown = false;
         }
 
-        if (Persistence.existing.TenTimesAbilityActive && tenTimesAbilityTime < Constants.ABILITY_TEN_TIMES_DURATION)
+        if (Persistence.Instance.TenTimesAbilityActive && tenTimesAbilityTime < Constants.ABILITY_TEN_TIMES_DURATION)
         {
             tenTimesAbilityTime += Time.deltaTime;
         }
         else
         {
             tenTimesAbilityTime = 0f;
-            Persistence.existing.TenTimesAbilityActive = false;
+            Persistence.Instance.TenTimesAbilityActive = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("J_Start"))
@@ -159,8 +159,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Persistence.existing.Time += Time.deltaTime;
-        Persistence.existing.Time = float.Parse(Persistence.existing.Time.ToString("0.00"));
+        Persistence.Instance.Time += Time.deltaTime;
+        Persistence.Instance.Time = float.Parse(Persistence.Instance.Time.ToString("0.00"));
 
         virusTimer += Time.deltaTime;
         if (virusTimer >= virusSpawnRate)
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
             virusSpawnRate += 2f;
         }
 
-        if (Input.GetMouseButtonDown(1) || (!rightTriggerDown && Input.GetAxisRaw(Persistence.existing.ControllerControls["MoveSelected"]) < -0.1f))
+        if (Input.GetMouseButtonDown(1) || (!rightTriggerDown && Input.GetAxisRaw(Persistence.Instance.ControllerControls["MoveSelected"]) < -0.1f))
         {
             rightTriggerDown = true;
             if (PlayerState == PlayerState.FREE && SelectedNodes != null)
@@ -182,22 +182,22 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Attempting move (RIGHT CLICK)");
                 foreach (INode node in SelectedNodes)
                 {
-                    node.MoveTo(Persistence.existing.ControllerIsConnected ? controllerCursor.transform.position : Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    node.MoveTo(Persistence.Instance.ControllerIsConnected ? controllerCursor.transform.position : Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 }
             }
         }
 
-        if (Input.GetAxisRaw(Persistence.existing.ControllerControls["MoveSelected"]) == 0)
+        if (Input.GetAxisRaw(Persistence.Instance.ControllerControls["MoveSelected"]) == 0)
             rightTriggerDown = false;
 
-        if (Input.GetButtonDown(Persistence.existing.ControllerControls["SelectClosest"]))
+        if (Input.GetButtonDown(Persistence.Instance.ControllerControls["SelectClosest"]))
         {
             INode closestNode = GetClosestNode();
             if (GetClosestNode() != null)
                 closestNode.OnMouseDown();
         }
 
-        if (Input.GetButtonDown(Persistence.existing.ControllerControls["ConnectKey"]) && SelectedNodes.Count != 0)
+        if (Input.GetButtonDown(Persistence.Instance.ControllerControls["ConnectKey"]) && SelectedNodes.Count != 0)
         {
             INode closestNode = GetClosestNode();
             if (closestNode != null)

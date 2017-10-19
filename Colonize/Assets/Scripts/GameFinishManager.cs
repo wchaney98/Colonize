@@ -19,12 +19,12 @@ public class GameFinishManager : MonoBehaviour
         s.AppendLine("GAME OVER");
         s.AppendLine("---");
         s.AppendLine("YOU SURVIVED FOR...");
-        s.AppendLine(Persistence.existing.Time.ToString());
-        if (Persistence.existing.Time > 120)
+        s.AppendLine(Persistence.Instance.Time.ToString());
+        if (Persistence.Instance.Time > 120)
             s.AppendLine("<color=magenta>THAT WAS INSANE!!!</color>");
-        else if (Persistence.existing.Time > 90)
+        else if (Persistence.Instance.Time > 90)
             s.AppendLine("<color=teal>NICE JOB</color>");
-        else if (Persistence.existing.Time > 60)
+        else if (Persistence.Instance.Time > 60)
             s.AppendLine("<color=grey>NOT BAD...</color>");
         else
             s.AppendLine("<color=red>ARE YOU EVEN TRYING</color>");
@@ -34,7 +34,7 @@ public class GameFinishManager : MonoBehaviour
 
     public void Retry()
     {
-        Persistence.existing.Time = 0;
+        Persistence.Instance.Time = 0;
         SceneManager.LoadScene("Main Game");
     }
 

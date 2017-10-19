@@ -86,7 +86,7 @@ public class LevelUpMenu : MonoBehaviour
                 canvasGroup.alpha = 0f;
                 canvasGroup.interactable = false;
             }
-            if (node != null && Input.GetKeyDown(Persistence.existing.Controls["LevelUpKey"]) || Input.GetButtonDown(Persistence.existing.ControllerControls["LevelUpKey"]))
+            if (node != null && Input.GetKeyDown(Persistence.Instance.Controls["LevelUpKey"]) || Input.GetButtonDown(Persistence.Instance.ControllerControls["LevelUpKey"]))
             {
                 switch (node.Level)
                 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SingletonBehavior<T> : MonoBehaviour where T : Component
 {
@@ -32,11 +28,16 @@ public class SingletonBehavior<T> : MonoBehaviour where T : Component
             Debug.Log(typeof(T).Name + " was null. Instancing...");
             instance = this as T;
             DontDestroyOnLoad(this.gameObject);
+            Init();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    protected virtual void Init()
+    {
     }
 }
 

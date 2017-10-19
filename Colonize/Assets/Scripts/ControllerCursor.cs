@@ -13,7 +13,7 @@ public class ControllerCursor : MonoBehaviour
     void Update()
     {
         Vector2 originalPos = transform.position;
-        Vector2 newPos = originalPos + Persistence.existing.GetMainStickData() * Time.deltaTime * 10;
+        Vector2 newPos = originalPos + Persistence.Instance.GetMainStickData() * Time.deltaTime * 10;
         transform.position = newPos;
     }
 }
