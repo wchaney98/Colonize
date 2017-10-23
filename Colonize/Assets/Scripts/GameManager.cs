@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
             virusSpawnRate += 2f;
         }
 
-        if (Input.GetMouseButtonDown(1) || (!rightTriggerDown && Input.GetAxisRaw(Persistence.Instance.ControllerControls["MoveSelected"]) < -0.1f))
+        if (Input.GetMouseButtonDown(1) || (!rightTriggerDown && InputManager.Instance.ControllerMoveSelected.Check()))
         {
             rightTriggerDown = true;
             if (PlayerState == PlayerState.FREE && SelectedNodes != null)
@@ -187,25 +187,29 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetAxisRaw(Persistence.Instance.ControllerControls["MoveSelected"]) == 0)
+        if (Input.GetAxisRaw(InputManager.Instance.ControllerMoveSelected.ControllerInput) == 0)
             rightTriggerDown = false;
 
-        if (Input.GetButtonDown(Persistence.Instance.ControllerControls["SelectClosest"]))
+        if (InputManager.Instance.ControllerSelectClosest.Check())
         {
             INode closestNode = GetClosestNode();
             if (GetClosestNode() != null)
                 closestNode.OnMouseDown();
         }
 
-        if (Input.GetButtonDown(Persistence.Instance.ControllerControls["ConnectKey"]) && SelectedNodes.Count != 0)
+        if (InputManager.Instance.ConnectKey.Check())
+        {
+            PlayerState = PlayerState.CONNECTING;
+        }
+
+        if (InputManager.Instance.ConnectKey.Check() && SelectedNodes.Count != 0)
         {
             INode closestNode = GetClosestNode();
             if (closestNode != null)
             {
                 PlayerState = PlayerState.CONNECTING;
                 closestNode.OnMouseDown();
-            }
-                
+            }       
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -254,6 +258,7 @@ public class GameManager : MonoBehaviour
                 temp.Draw();
             }
         }
+
         NodeManager.Nodes.RemoveAll(x => x.Dead);
 
         if (NodeManager.Nodes.Count == 0)

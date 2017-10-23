@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class ControllerCursor : MonoBehaviour
 {
-
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         Vector2 originalPos = transform.position;

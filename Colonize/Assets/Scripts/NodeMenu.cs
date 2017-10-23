@@ -44,10 +44,7 @@ public class NodeMenu : MonoBehaviour
 	
 	void Update ()
     {
-        if (Input.GetKeyDown(Persistence.Instance.Controls["ConnectKey"])) //|| Input.GetButtonDown(Persistence.existing.ControllerControls["ConnectKey"]))
-        {
-            SwitchToConnectState();
-        }
+        
     }
 
 }

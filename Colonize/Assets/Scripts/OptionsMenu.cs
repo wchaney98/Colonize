@@ -48,41 +48,40 @@ public class OptionsMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;          
                 string marker = "";
-                foreach (var key in Persistence.Instance.Controls)
+                foreach (InputCommand command in InputManager.Instance.GetCommands())
                 {
-                    if (key.Value == Input.inputString)
+                    if (command.KeyboardInput == Input.inputString)
                     {
-                        marker = key.Key;
+                        command.KeyboardInput = "";
                     }
                 }
-                Persistence.Instance.Controls[marker] = "";
 
                 currentButtonText.text = Input.inputString;
 
                 // :(
                 if (currentButtonText == ConnectKeyButtonText)
                 {
-                    Persistence.Instance.Controls["ConnectKey"] = Input.inputString;
+                    InputManager.Instance.ConnectKey.KeyboardInput = Input.inputString;
                 }
                 else if (currentButtonText == LevelUpKeyButtonText)
                 {
-                    Persistence.Instance.Controls["LevelUpKey"] = Input.inputString;
+                    InputManager.Instance.LevelUpKey.KeyboardInput = Input.inputString;
                 }
                 else if (currentButtonText == SlowTimeKeyButtonText)
                 {
-                    Persistence.Instance.Controls["SlowTimeKey"] = Input.inputString;
+                    InputManager.Instance.SlowTimeKey.KeyboardInput = Input.inputString;
                 }
                 else if (currentButtonText == SurplusKeyButtonText)
                 {
-                    Persistence.Instance.Controls["SurplusKey"] = Input.inputString;
+                    InputManager.Instance.SurplusKey.KeyboardInput = Input.inputString;
                 }
                 else if (currentButtonText == DestroyVirusesKeyButtonText)
                 {
-                    Persistence.Instance.Controls["DestroyVirusesKey"] = Input.inputString;
+                    InputManager.Instance.DestroyVirusesKey.KeyboardInput = Input.inputString;
                 }
                 else if (currentButtonText == TenTimesResourceKeyButtonText)
                 {
-                    Persistence.Instance.Controls["TenTimesResourceKey"] = Input.inputString;
+                    InputManager.Instance.TenTimesResourcesKey.KeyboardInput = Input.inputString;
                 }
 
                 waitingForNewKey = false;
@@ -134,21 +133,16 @@ public class OptionsMenu : MonoBehaviour
         DestroyVirusesKeyButtonText = DestroyVirusesKey.transform.GetChild(2).GetChild(0).GetComponent<Text>();
         TenTimesResourceKeyButtonText = TenTimesResourceKey.transform.GetChild(2).GetChild(0).GetComponent<Text>();
 
-        ConnectKeyText.text = Persistence.Instance.Controls["ConnectKey"];
-        LevelUpKeyText.text = Persistence.Instance.Controls["LevelUpKey"];
-        SlowTimeKeyText.text = Persistence.Instance.Controls["SlowTimeKey"];
-        SurplusKeyText.text = Persistence.Instance.Controls["SurplusKey"];
-        DestroyVirusesKeyText.text = Persistence.Instance.Controls["DestroyVirusesKey"];
-        TenTimesResourceKeyText.text = Persistence.Instance.Controls["TenTimesResourceKey"];
+        UpdateStrings();
     }
 
     void UpdateStrings()
     {
-        ConnectKeyText.text = Persistence.Instance.Controls["ConnectKey"];
-        LevelUpKeyText.text = Persistence.Instance.Controls["LevelUpKey"];
-        SlowTimeKeyText.text = Persistence.Instance.Controls["SlowTimeKey"];
-        SurplusKeyText.text = Persistence.Instance.Controls["SurplusKey"];
-        DestroyVirusesKeyText.text = Persistence.Instance.Controls["DestroyVirusesKey"];
-        TenTimesResourceKeyText.text = Persistence.Instance.Controls["TenTimesResourceKey"];
+        ConnectKeyText.text = InputManager.Instance.ConnectKey.KeyboardInput;
+        LevelUpKeyText.text = InputManager.Instance.LevelUpKey.KeyboardInput;
+        SlowTimeKeyText.text = InputManager.Instance.SlowTimeKey.KeyboardInput;
+        SurplusKeyText.text = InputManager.Instance.SurplusKey.KeyboardInput;
+        DestroyVirusesKeyText.text = InputManager.Instance.DestroyVirusesKey.KeyboardInput;
+        TenTimesResourceKeyText.text = InputManager.Instance.TenTimesResourcesKey.KeyboardInput;
     }
 }

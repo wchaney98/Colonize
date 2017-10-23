@@ -81,22 +81,22 @@ public class AbilityMenu : MonoBehaviour
             dPadDown = false;
         }
 
-        if (Input.GetKeyDown(Persistence.Instance.Controls["SlowTimeKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == -1))
+        if (InputManager.Instance.SlowTimeKey.Check())
         {
             dPadDown = true;
             SlowdownAbility();
         }
-        if (Input.GetKeyDown(Persistence.Instance.Controls["SurplusKey"]) || (!dPadDown && Input.GetAxis("J_DpadHorizontal") == 1))
+        if (InputManager.Instance.SurplusKey.Check())
         {
             dPadDown = true;
             SurplusAbility();
         }
-        if (Input.GetKeyDown(Persistence.Instance.Controls["DestroyVirusesKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == 1))
+        if (InputManager.Instance.DestroyVirusesKey.Check())
         {
             dPadDown = true;
             DestroyVirusesAbility();
         }
-        if (Input.GetKeyDown(Persistence.Instance.Controls["TenTimesResourceKey"]) || (!dPadDown && Input.GetAxis("J_DpadVertical") == -1))
+        if (InputManager.Instance.TenTimesResourcesKey.Check())
         {
             dPadDown = true;
             TenTimesAbility();

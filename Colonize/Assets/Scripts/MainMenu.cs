@@ -38,6 +38,7 @@ public class MainMenu : MonoBehaviour
 
     public void Options()
     {
+        SoundManager.Instance.DoPlayOneShot(SoundFile.ButtonClick);
         if (Persistence.Instance.ControllerIsConnected)
             SceneManager.LoadScene("Controller Options");
         else

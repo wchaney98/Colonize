@@ -68,6 +68,7 @@ public class SoundManager : SingletonBehavior<SoundManager>
         //such as different pitch/volume for different sources.
         if (SoundEffectSource == null)
         {
+            Debug.Log("Creating SoundEffectSource");
             SoundEffectSource = new GameObject("SoundEffectSource", typeof(AudioSource)).GetComponent<AudioSource>();
             DontDestroyOnLoad(SoundEffectSource.gameObject);
         }
@@ -75,6 +76,7 @@ public class SoundManager : SingletonBehavior<SoundManager>
         //Creates a single background music source.
         if (BGMSource == null)
         {
+            Debug.Log("Creating BGMSource");
             BGMSource = new GameObject("BGMSource", typeof(AudioSource)).GetComponent<AudioSource>();
             BGMSource.volume = .5f;
             BGMSource.loop = true;
