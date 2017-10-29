@@ -30,6 +30,8 @@ public abstract class Node : MonoBehaviour, INode
     protected float takingDamageSoundTimer = 0f;
 
     private bool lowHealthSoundPlayed = false;
+    private bool collidingWithVirus = false;
+    private bool mouseOver = false;
 
     protected virtual void OnTriggerStay2D(Collider2D other)
     {
@@ -41,7 +43,16 @@ public abstract class Node : MonoBehaviour, INode
             {
                 SoundManager.Instance.DoPlayOneShot(SoundFile.NodeTakingDamage, Position);
                 takingDamageSoundTimer = 0f;
+                collidingWithVirus = true;
             }
+        }
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Virus")
+        {
+            collidingWithVirus = false;
         }
     }
 
@@ -76,12 +87,12 @@ public abstract class Node : MonoBehaviour, INode
 
     protected void OnMouseOver()
     {
-        spriteRenderer.color = new Color(0.9f, 0.9f, 0.9f, 0.9f);
+        mouseOver = true;
     }
 
     protected void OnMouseExit()
     {
-        spriteRenderer.color = Color.white;
+        mouseOver = false;
     }
 
     public abstract void ConnectTo(INode otherNode);
@@ -209,10 +220,25 @@ public abstract class Node : MonoBehaviour, INode
             //spriteRenderer.color = new Color(0.9f, 0.9f, 0.2f, 1f);
             iTween.ColorUpdate(gameObject, new Color(0.9f, 0.9f, 0.2f, 0.95f), 1f);
         }
-
         else
         {
             iTween.ColorUpdate(gameObject, Color.white, 0.2f);
+        }
+
+        if (mouseOver || collidingWithVirus)
+        {
+            if (mouseOver)
+            {
+                spriteRenderer.color = new Color(0.9f, 0.9f, 0.9f, 0.4f);
+            }
+            if (collidingWithVirus)
+            {
+                spriteRenderer.color = new Color(1f, spriteRenderer.color.g - 0.25f, spriteRenderer.color.b - 0.25f, 1f);
+            }
+        }
+        else
+        {
+            spriteRenderer.color = Color.white;
         }
     }
 

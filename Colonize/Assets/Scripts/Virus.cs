@@ -25,14 +25,14 @@ public class Virus : MonoBehaviour
     private Vector2 chargeTargetPos;
 
     void Start () 
-	{
+  {
         Cam = GameObject.Find("Main Camera");
         nodes = Cam.GetComponent<GameManager>().NodeManager.Nodes;
         Cam.GetComponent<GameManager>().Viruses.Add(this);
     }
-	
-	void Update () 
-	{
+  
+  void Update () 
+  {
         if (state == VirusState.IDLE)
         {
             if (nodes.Count != 0)
@@ -72,7 +72,7 @@ public class Virus : MonoBehaviour
                 state = VirusState.IDLE;
             }
         }
-	}
+  }
 
     IEnumerator Charge(Vector2 newPos, Vector2 dir)
     {

@@ -64,8 +64,9 @@ public class AqueductNode : Node
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    protected override void OnTriggerExit2D(Collider2D other)
     {
+        base.OnTriggerExit2D(other);
         if (other.tag == "Resource")
         {
             gathering = false;
