@@ -28,7 +28,7 @@ public class BasicNode : Node
             {
                 ConnectedNodes.Add(otherNode);
                 otherNode.AddConnectedNode(this);
-                Debug.Log("ConnectTo Result:" + ConnectedNodes);
+                Debug.Log("BASICNODE ConnectTo Result:" + ConnectedNodes);
                 foreach (INode node in ConnectedNodes)
                 {
                     Debug.Log("ConnectTo: " + node);
@@ -41,6 +41,19 @@ public class BasicNode : Node
                     ConnectedNodes.Add(otherNode);
                     otherNode.AddConnectedNode(this);
                     Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
+                    foreach (INode node in ConnectedNodes)
+                    {
+                        Debug.Log("ConnectTo: " + node);
+                    }
+                }
+            }
+            if (otherNode is LeechNode)
+            {
+                if (otherNode.ConnectedNodes.Count == 0)
+                {
+                    ConnectedNodes.Add(otherNode);
+                    otherNode.AddConnectedNode(this);
+                    Debug.Log("LEECHNODE ConnectTo Result:" + ConnectedNodes);
                     foreach (INode node in ConnectedNodes)
                     {
                         Debug.Log("ConnectTo: " + node);

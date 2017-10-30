@@ -25,8 +25,6 @@ public class Map
 
     private void PopulateMap(int size)
     {
-        bool resourcesCreated = false;
-        bool corruptionCreated = false;
 
         int centerCell = size / 2;
         Point startingSpot;

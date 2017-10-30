@@ -30,7 +30,7 @@ public abstract class Node : MonoBehaviour, INode
     protected float takingDamageSoundTimer = 0f;
 
     private bool lowHealthSoundPlayed = false;
-    private bool collidingWithVirus = false;
+    protected bool collidingWithVirus = false;
     private bool mouseOver = false;
 
     protected virtual void OnTriggerStay2D(Collider2D other)

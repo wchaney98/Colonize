@@ -3,14 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public enum ResourceType
-{
-    NORMAL,
-    CONCENTRATED,
-    PURE
-}
-
-public class AqueductNode : Node
+public class LeechNode : Node
 {
     /*public string NodeInfo
     {
@@ -34,11 +27,11 @@ public class AqueductNode : Node
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Resource" && other.gameObject.GetComponent<Resource>().Gatherer == null)
+        if (other.tag == "Virus")
         {
             gathering = true;
             GatherAndTransferResources(Constants.NORMAL_AQUEDUCT_LIFE_PER_GATHER);
-            other.gameObject.GetComponent<Resource>().Gatherer = this;
+            other.gameObject.GetComponent<Virus>().Leech(Constants.LEECH_NODE_RESOURCE_AMOUNT);
         }
     }
 
@@ -49,14 +42,16 @@ public class AqueductNode : Node
         GatherCounter += Time.deltaTime;
         if (GatherCounter >= SecPerGather)
         {
-            if (other.tag == "Resource" && other.gameObject.GetComponent<Resource>().Gatherer as Object == this)
+            if (other.tag == "Virus")
             {
                 if (Persistence.Instance.TenTimesAbilityActive)
                 {
+                    other.gameObject.GetComponent<Virus>().Leech(Constants.LEECH_NODE_RESOURCE_AMOUNT);
                     GatherAndTransferResources(Constants.NORMAL_AQUEDUCT_LIFE_PER_GATHER * 10);
                 }
                 else
                 {
+                    other.gameObject.GetComponent<Virus>().Leech(Constants.LEECH_NODE_RESOURCE_AMOUNT);
                     GatherAndTransferResources(Constants.NORMAL_AQUEDUCT_LIFE_PER_GATHER);
                 }
             }
@@ -67,10 +62,9 @@ public class AqueductNode : Node
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
-        if (other.tag == "Resource")
+        if (other.tag == "Virus")
         {
             gathering = false;
-            other.gameObject.GetComponent<Resource>().Gatherer = null;
         }
     }
 
@@ -145,6 +139,7 @@ public class AqueductNode : Node
 
     protected override void Update()
     {
+        collidingWithVirus = false;
         base.Update();
         if (gathering)
         {

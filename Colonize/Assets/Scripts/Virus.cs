@@ -10,7 +10,7 @@ public enum VirusState
     CHARGING
 }
 
-public class Virus : MonoBehaviour 
+public class Virus : MonoBehaviour
 {
     private GameObject Cam;
 
@@ -24,15 +24,27 @@ public class Virus : MonoBehaviour
     private int chargeTarget = 0;
     private Vector2 chargeTargetPos;
 
-    void Start () 
-  {
+    private float health = 100f;
+
+    public void Leech(float amount)
+    {
+        health -= amount * 3;
+    }
+
+    void Start()
+    {
         Cam = GameObject.Find("Main Camera");
         nodes = Cam.GetComponent<GameManager>().NodeManager.Nodes;
         Cam.GetComponent<GameManager>().Viruses.Add(this);
     }
-  
-  void Update () 
-  {
+
+    void Update()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         if (state == VirusState.IDLE)
         {
             if (nodes.Count != 0)
@@ -72,7 +84,7 @@ public class Virus : MonoBehaviour
                 state = VirusState.IDLE;
             }
         }
-  }
+    }
 
     IEnumerator Charge(Vector2 newPos, Vector2 dir)
     {

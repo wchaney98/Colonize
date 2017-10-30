@@ -30,5 +30,7 @@ class Constants
     public static readonly int VIRUS_DECAY_MULTIPLIER = 5;
 
     public static readonly float SELECTION_MIN_SIZE = 25f;
+
+    public static readonly float LEECH_NODE_RESOURCE_AMOUNT = 7f;
 }
 
