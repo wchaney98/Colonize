@@ -34,30 +34,20 @@ public class BasicNode : Node
                     Debug.Log("ConnectTo: " + node);
                 }
             }
-            if (otherNode is AqueductNode)
+            if (otherNode is AqueductNode || otherNode is LeechNode || otherNode is PrefectNode)
             {
-                if (otherNode.ConnectedNodes.Count == 0)
+                // Remove all connections to this node... to and from... before "stealing" this connection
+                if (otherNode.ConnectedNodes.Count != 0)
                 {
-                    ConnectedNodes.Add(otherNode);
-                    otherNode.AddConnectedNode(this);
-                    Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
-                    foreach (INode node in ConnectedNodes)
-                    {
-                        Debug.Log("ConnectTo: " + node);
-                    }
+                    otherNode.ConnectedNodes[0].ConnectedNodes.Remove(otherNode);
+                    otherNode.ConnectedNodes.Clear();
                 }
-            }
-            if (otherNode is LeechNode)
-            {
-                if (otherNode.ConnectedNodes.Count == 0)
+                ConnectedNodes.Add(otherNode);
+                otherNode.AddConnectedNode(this);
+                Debug.Log(otherNode.GetType() + " ConnectTo Result:" + ConnectedNodes);
+                foreach (INode node in ConnectedNodes)
                 {
-                    ConnectedNodes.Add(otherNode);
-                    otherNode.AddConnectedNode(this);
-                    Debug.Log("LEECHNODE ConnectTo Result:" + ConnectedNodes);
-                    foreach (INode node in ConnectedNodes)
-                    {
-                        Debug.Log("ConnectTo: " + node);
-                    }
+                    Debug.Log("ConnectTo: " + node);
                 }
             }
         }

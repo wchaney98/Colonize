@@ -173,7 +173,7 @@ public abstract class Node : MonoBehaviour, INode
 
     protected virtual void Update()
     {
-        textMesh.text = Mathf.Floor((((float)Life / MaxLife) * 100)).ToString() + "%";
+        textMesh.text = Mathf.Floor((((float)Life / MaxLife) * 100)).ToString();
         DecayCounter += Time.deltaTime;
         if (DecayCounter >= SecPerDecay * (ConnectedNodes.Count + 1))
         {
@@ -229,7 +229,7 @@ public abstract class Node : MonoBehaviour, INode
         {
             if (mouseOver)
             {
-                spriteRenderer.color = new Color(0.9f, 0.9f, 0.9f, 0.4f);
+                spriteRenderer.color = new Color(0.9f, 0.9f, 0.9f, 0.8f);
             }
             if (collidingWithVirus)
             {

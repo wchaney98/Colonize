@@ -12,6 +12,8 @@ public enum VirusState
 
 public class Virus : MonoBehaviour
 {
+    public bool StuckThisFrame = false;
+
     private GameObject Cam;
 
     private List<INode> nodes;
@@ -40,6 +42,13 @@ public class Virus : MonoBehaviour
 
     void Update()
     {
+        if (StuckThisFrame)
+        {
+            StopAllCoroutines();
+            choosingTimer = 0f;
+            StuckThisFrame = false;
+        }
+
         if (health <= 0)
         {
             Destroy(gameObject);

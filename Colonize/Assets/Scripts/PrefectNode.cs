@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class LeechNode : Node
+
+public class PrefectNode : Node
 {
     /*public string NodeInfo
     {
@@ -20,61 +21,7 @@ public class LeechNode : Node
     protected override float SecPerDecay { get; set; }
     public override float MoveSpeed { get; set; }
 
-    private float GatherCounter = 0;
-    private float SecPerGather = 1.2f;
-    private float pulsatingGlowTimer = 0f;
-    private bool gathering = false;
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Virus")
-        {
-            gathering = true;
-            GatherAndTransferResources(Constants.NORMAL_AQUEDUCT_LIFE_PER_GATHER);
-            other.gameObject.GetComponent<Virus>().Leech(Constants.LEECH_NODE_RESOURCE_AMOUNT);
-        }
-    }
-
-    protected override void OnTriggerStay2D(Collider2D other)
-    {
-        base.OnTriggerStay2D(other);
-
-        GatherCounter += Time.deltaTime;
-        if (GatherCounter >= SecPerGather)
-        {
-            if (other.tag == "Virus")
-            {
-                if (Persistence.Instance.TenTimesAbilityActive)
-                {
-                    other.gameObject.GetComponent<Virus>().Leech(Constants.LEECH_NODE_RESOURCE_AMOUNT);
-                    GatherAndTransferResources(Constants.NORMAL_AQUEDUCT_LIFE_PER_GATHER * 10);
-                }
-                else
-                {
-                    other.gameObject.GetComponent<Virus>().Leech(Constants.LEECH_NODE_RESOURCE_AMOUNT);
-                    GatherAndTransferResources(Constants.NORMAL_AQUEDUCT_LIFE_PER_GATHER);
-                }
-            }
-            GatherCounter = 0;
-        }
-    }
-
-    protected override void OnTriggerExit2D(Collider2D other)
-    {
-        base.OnTriggerExit2D(other);
-        if (other.tag == "Virus")
-        {
-            gathering = false;
-        }
-    }
-
-    private void GatherAndTransferResources(int amount)
-    {
-        foreach (INode node in ConnectedNodes)
-        {
-            node.ReceiveResources(amount, this, this);
-        }
-    }
+    private bool connectedToAnotherPrefect = false;
 
     public override void ConnectTo(INode otherNode)
     {
@@ -110,6 +57,11 @@ public class LeechNode : Node
                 {
                     Debug.Log("ConnectTo: " + node);
                 }
+
+                if (otherNode is PrefectNode)
+                {
+                    connectedToAnotherPrefect = true;
+                }
             }
         }
     }
@@ -123,23 +75,29 @@ public class LeechNode : Node
 
     protected override void Update()
     {
-        collidingWithVirus = false;
         base.Update();
-        if (gathering)
+
+        if (ConnectedNodes.Count == 0)
         {
-            if (pulsatingGlowTimer == 0)
+            connectedToAnotherPrefect = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (connectedToAnotherPrefect)
+        {
+            Vector2 dir = ConnectedNodes[0].Position - Position;
+            float distance = Vector2.Distance(ConnectedNodes[0].Position, Position);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(Position, dir, distance);
+
+            foreach (RaycastHit2D hit in hits)
             {
-                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 0.8f), 0.5f);
+                if (hit.collider.gameObject.tag == "Virus")
+                {
+                    hit.collider.gameObject.GetComponent<Virus>().StuckThisFrame = true;
+                }
             }
-            if (pulsatingGlowTimer >= 0.5f)
-            {
-                iTween.ColorUpdate(gameObject, new Color(0.2f, 1f, 1f, 1f), 0.5f);
-            }
-            if (pulsatingGlowTimer >= 1f)
-            {
-                pulsatingGlowTimer = 0f;
-            }
-            pulsatingGlowTimer += Time.deltaTime;
         }
     }
 

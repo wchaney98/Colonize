@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Vectrosity;
 using UnityEngine.SceneManagement;
@@ -118,6 +119,12 @@ public class GameManager : MonoBehaviour
         CreateNode("A", 6.6f, -1.5f);
         CreateNode("A", -1.9f, 1.9f);
         CreateNode("A", -4.6f, -0.2f);
+
+        LeechNode[] leechNodes = GameObject.FindObjectsOfType<LeechNode>();
+        leechNodes.ToList().ForEach(x => NodeManager.AddNode(x));
+
+        PrefectNode[] prefectNodes = GameObject.FindObjectsOfType<PrefectNode>();
+        prefectNodes.ToList().ForEach(x => NodeManager.AddNode(x));
     }
 
     void Update()
@@ -249,11 +256,12 @@ public class GameManager : MonoBehaviour
             foreach (INode connectedNode in baseNode.ConnectedNodes)
             {
                 Vector3 connectedNodePos = cam.WorldToScreenPoint(connectedNode.Position);
+                float randRange = connectedNode is PrefectNode ? 4f : 1f;
                 VectorLine temp = VectorLine.SetLine(
                     baseNode.ReceivingResources && baseNode as AqueductNode != null ? Color.yellow : Color.white,
                     Time.deltaTime,
-                    new Vector2(baseNodePos.x + Random.Range(-1, 1), baseNodePos.y + Random.Range(-1, 1)),
-                    new Vector2(connectedNodePos.x + Random.Range(-1, 1), connectedNodePos.y + Random.Range(-1, 1)));
+                    new Vector2(baseNodePos.x + Random.Range(-randRange, randRange), baseNodePos.y + Random.Range(-randRange, randRange)),
+                    new Vector2(connectedNodePos.x + Random.Range(-randRange, randRange), connectedNodePos.y + Random.Range(-randRange, randRange)));
                 temp.SetWidth(1f);
                 temp.Draw();
             }
@@ -281,17 +289,21 @@ public class GameManager : MonoBehaviour
 
     private INode GetClosestNode()
     {
-        INode closestNode = null;
-        float smallestDistance = 1000f;
-        foreach (INode node in NodeManager.Nodes)
+        if (controllerCursor != null)
         {
-            float distance = Vector2.Distance(node.Position, controllerCursor.transform.position);
-            if (distance < smallestDistance)
+            INode closestNode = null;
+            float smallestDistance = 1000f;
+            foreach (INode node in NodeManager.Nodes)
             {
-                closestNode = node;
-                smallestDistance = distance;
+                float distance = Vector2.Distance(node.Position, controllerCursor.transform.position);
+                if (distance < smallestDistance)
+                {
+                    closestNode = node;
+                    smallestDistance = distance;
+                }
             }
+            return closestNode;
         }
-        return closestNode;
+        return null;
     }
 }

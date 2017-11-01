@@ -101,7 +101,7 @@ public class AqueductNode : Node
                     Debug.Log("ConnectTo: " + node);
                 }
             }
-            if (otherNode is AqueductNode)
+            if (otherNode is AqueductNode || otherNode is LeechNode || otherNode is PrefectNode)
             {
                 // Remove all connections to this node... to and from... before "stealing" this connection
                 if (otherNode.ConnectedNodes.Count != 0)
@@ -111,23 +111,7 @@ public class AqueductNode : Node
                 }
                 ConnectedNodes.Add(otherNode);
                 otherNode.AddConnectedNode(this);
-                Debug.Log("AQUEDUCTNODE ConnectTo Result:" + ConnectedNodes);
-                foreach (INode node in ConnectedNodes)
-                {
-                    Debug.Log("ConnectTo: " + node);
-                }
-            }
-            if (otherNode is LeechNode)
-            {
-                // Remove all connections to this node... to and from... before "stealing" this connection
-                if (otherNode.ConnectedNodes.Count != 0)
-                {
-                    otherNode.ConnectedNodes[0].ConnectedNodes.Remove(otherNode);
-                    otherNode.ConnectedNodes.Clear();
-                }
-                ConnectedNodes.Add(otherNode);
-                otherNode.AddConnectedNode(this);
-                Debug.Log("LEECHNODE ConnectTo Result:" + ConnectedNodes);
+                Debug.Log(otherNode.GetType() + " ConnectTo Result:" + ConnectedNodes);
                 foreach (INode node in ConnectedNodes)
                 {
                     Debug.Log("ConnectTo: " + node);
