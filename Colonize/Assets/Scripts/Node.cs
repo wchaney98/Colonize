@@ -260,4 +260,9 @@ public abstract class Node : MonoBehaviour, INode
         Dead = true;
         Destroy(this);
     }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
 }
