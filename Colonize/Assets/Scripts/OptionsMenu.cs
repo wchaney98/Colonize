@@ -47,7 +47,6 @@ public class OptionsMenu : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;          
-                string marker = "";
                 foreach (InputCommand command in InputManager.Instance.GetCommands())
                 {
                     if (command.KeyboardInput == Input.inputString)
