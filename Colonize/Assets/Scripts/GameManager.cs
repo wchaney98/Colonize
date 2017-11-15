@@ -113,17 +113,23 @@ public class GameManager : MonoBehaviour
         }
 
         // FOR THIS VER ONLY
-        CreateNode("B", -0.5f, -2.5f);
-        CreateNode("B", 3.8f, -0.5f);
-        CreateNode("B", 2.1f, 2.5f);
-        CreateNode("A", 6.6f, -1.5f);
-        CreateNode("A", -1.9f, 1.9f);
-        CreateNode("A", -4.6f, -0.2f);
+        //CreateNode("B", -0.5f, -2.5f);
+        //CreateNode("B", 3.8f, -0.5f);
+        //CreateNode("B", 2.1f, 2.5f);
+        //CreateNode("A", 6.6f, -1.5f);
+        //CreateNode("A", -1.9f, 1.9f);
+        //CreateNode("A", -4.6f, -0.2f);
 
-        LeechNode[] leechNodes = GameObject.FindObjectsOfType<LeechNode>();
+        BasicNode[] basicNodes = FindObjectsOfType<BasicNode>();
+        basicNodes.ToList().ForEach(x => NodeManager.AddNode(x));
+
+        AqueductNode[] aqueductNodes = FindObjectsOfType<AqueductNode>();
+        aqueductNodes.ToList().ForEach(x => NodeManager.AddNode(x));
+
+        LeechNode[] leechNodes = FindObjectsOfType<LeechNode>();
         leechNodes.ToList().ForEach(x => NodeManager.AddNode(x));
 
-        PrefectNode[] prefectNodes = GameObject.FindObjectsOfType<PrefectNode>();
+        PrefectNode[] prefectNodes = FindObjectsOfType<PrefectNode>();
         prefectNodes.ToList().ForEach(x => NodeManager.AddNode(x));
     }
 

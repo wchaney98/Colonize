@@ -31,7 +31,7 @@ public class Resource : MonoBehaviour
         RelocateTimer += Time.deltaTime;
         if (RelocateTimer >= RelocateTime)
         {
-            transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), transform.position.z);
+            transform.position = new Vector3(Random.Range(-8f, 4f), Random.Range(-4f, 4f), transform.position.z);
             RelocateTimer = 0f;
         }
     }

@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum UpgradeRoute
+{
+    Speed,
+    Durable,
+    Undefined
+}
+
 public interface INode
 {
+    UpgradeRoute Route { get; set; }
     bool Dead { get; set; }
     Vector3 Position { get; set; }
     bool ReceivingResources { get; set; }

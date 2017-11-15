@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Node : MonoBehaviour, INode
 {
+    public UpgradeRoute Route { get; set; }
     public bool Dead { get; set; }
     public Vector3 Position { get; set; }
     public bool ReceivingResources { get; set; }
@@ -158,6 +159,7 @@ public abstract class Node : MonoBehaviour, INode
 
     protected virtual void Start()
     {
+        Route = UpgradeRoute.Undefined;
         Dead = false;
         Position = transform.position;
         textMesh = transform.GetChild(0).GetComponent<TextMesh>();

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour 
 {
-    EventSystem es;
     GameObject playButton;
 
     private void Start()
