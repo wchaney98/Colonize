@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Node : MonoBehaviour, INode
 {
+    public SpriteRenderer[] SpeedStars = new SpriteRenderer[3];
+    public SpriteRenderer[] DurableStars = new SpriteRenderer[3];
+
     public UpgradeRoute Route { get; set; }
     public bool Dead { get; set; }
     public Vector3 Position { get; set; }
@@ -33,6 +36,20 @@ public abstract class Node : MonoBehaviour, INode
     private bool lowHealthSoundPlayed = false;
     protected bool collidingWithVirus = false;
     private bool mouseOver = false;
+
+    public void ShowStar()
+    {
+        switch(Route)
+        {
+            case UpgradeRoute.Speed:
+                SpeedStars[Level - 2].color = new Color(1f, 1f, 1f, 1f);
+                break;
+
+            case UpgradeRoute.Durable:
+                DurableStars[Level - 2].color = new Color(1f, 1f, 1f, 1f);
+                break;
+        }
+    }
 
     protected virtual void OnTriggerStay2D(Collider2D other)
     {
@@ -159,6 +176,12 @@ public abstract class Node : MonoBehaviour, INode
 
     protected virtual void Start()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            SpeedStars[i].color = new Color(1f, 1f, 1f, 0f);
+            DurableStars[i].color = new Color(1f, 1f, 1f, 0f);
+        }
+
         Route = UpgradeRoute.Undefined;
         Dead = false;
         Position = transform.position;

@@ -47,6 +47,7 @@ public class Virus : MonoBehaviour
             StopAllCoroutines();
             choosingTimer = 0f;
             StuckThisFrame = false;
+            state = VirusState.IDLE;
         }
 
         if (health <= 0)

@@ -21,7 +21,8 @@ public class LevelUpMenu : MonoBehaviour
         foreach (INode node in GameManager.SelectedNodes)
         {
             node.Route = UpgradeRoute.Speed;
-            LevelUp(node,  Constants.LEVEL_UP_1_COST, node.VirusResistance, node.MoveSpeed * 1.5f);
+            LevelUp(node, Constants.LEVEL_UP_1_COST, node.VirusResistance, node.MoveSpeed * 1.5f);
+            node.ShowStar();
         }
     }
 
@@ -30,6 +31,7 @@ public class LevelUpMenu : MonoBehaviour
         foreach (INode node in GameManager.SelectedNodes)
         {
             LevelUp(node, Constants.LEVEL_UP_2_COST, node.VirusResistance, node.MoveSpeed * 1.5f);
+            node.ShowStar();
         }
     }
 
@@ -38,6 +40,7 @@ public class LevelUpMenu : MonoBehaviour
         foreach (INode node in GameManager.SelectedNodes)
         {
             LevelUp(node, Constants.LEVEL_UP_3_COST, node.VirusResistance, node.MoveSpeed * 2f);
+            node.ShowStar();
         }
     }
 
@@ -47,6 +50,7 @@ public class LevelUpMenu : MonoBehaviour
         {
             node.Route = UpgradeRoute.Durable;
             LevelUp(node, Constants.LEVEL_UP_1_COST, node.VirusResistance + 1, node.MoveSpeed);
+            node.ShowStar();
         }
     }
 
@@ -55,6 +59,7 @@ public class LevelUpMenu : MonoBehaviour
         foreach (INode node in GameManager.SelectedNodes)
         {
             LevelUp(node, Constants.LEVEL_UP_2_COST, node.VirusResistance + 1, node.MoveSpeed);
+            node.ShowStar();
         }
     }
 
@@ -63,6 +68,7 @@ public class LevelUpMenu : MonoBehaviour
         foreach (INode node in GameManager.SelectedNodes)
         {
             LevelUp(node, Constants.LEVEL_UP_3_COST, node.VirusResistance + 2, node.MoveSpeed);
+            node.ShowStar();
         }
     }
 
@@ -78,13 +84,15 @@ public class LevelUpMenu : MonoBehaviour
     void Start()
     {
         GameManager = Camera.GetComponent<GameManager>();
+        canvasGroup = GetComponent<CanvasGroup>();
 
         for (int i = 0; i < 3; i++)
         {
             levelUpButtonsSpeed[i] = LevelUpButtonsSpeed[i].GetComponent<Button>();
             levelUpButtonsDurable[i] = LevelUpButtonsDurable[i].GetComponent<Button>();
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
         }
-        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     private void Update()
@@ -101,11 +109,8 @@ public class LevelUpMenu : MonoBehaviour
                 if (noDuplicates.Add(_node.Level) || noDuplicates.Add((int)_node.Route))
                 {
                     // Set all to not interactable
-                    for (int i = 0; i < 3; i++)
-                    {
-                        canvasGroup.alpha = 0f;
-                        canvasGroup.interactable = false;
-                    }
+                    canvasGroup.alpha = 0f;
+                    canvasGroup.interactable = false;
                     return;
                 }
             }

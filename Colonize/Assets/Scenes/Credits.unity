@@ -466,8 +466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 12}
-  m_SizeDelta: {x: 887, y: 330.7}
+  m_AnchoredPosition: {x: 0, y: 0.0000038147}
+  m_SizeDelta: {x: 887, y: 487}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079386600
 MonoBehaviour:
@@ -490,7 +490,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 36c20e1b52ce82a4b9bca74f5f4ae7c5, type: 3}
-    m_FontSize: 26
+    m_FontSize: 23
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -501,8 +501,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "CREDITS:\n\nMost art assets and fonts from: \nhttps://kenney.nl/assets\n\nVectrosity
-    for line rendering: \nhttps://assetstore.unity.com/packages/tools/particles-effects/vectrosity-82"
+  m_Text: "<size=30>CREDITS:</size>\n\nMost art assets and fonts from: \nhttps://kenney.nl/assets\n\nVectrosity
+    for line rendering: \nhttps://assetstore.unity.com/packages/tools/particles-effects/vectrosity-82\n\n<size=30>Navigation
+    improvements:</size>\n1. Show magnitude of next level upgrade\n2. Color code/size
+    to show impact of upgrade\n3. stars to show what level and which upgrades nodes
+    have"
 --- !u!222 &1079386601
 CanvasRenderer:
   m_ObjectHideFlags: 0

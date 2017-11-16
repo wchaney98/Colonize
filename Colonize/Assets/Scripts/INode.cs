@@ -12,6 +12,7 @@ public enum UpgradeRoute
 
 public interface INode
 {
+    void ShowStar();
     UpgradeRoute Route { get; set; }
     bool Dead { get; set; }
     Vector3 Position { get; set; }

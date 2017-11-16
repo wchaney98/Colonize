@@ -755,7 +755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -354.4}
+  m_AnchoredPosition: {x: 0, y: -354.40002}
   m_SizeDelta: {x: 861.6, y: 1267.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946559202
@@ -790,36 +790,34 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\n<size=24>COLONIZE</size>\n\n\tTry to make your Nodes live as long as
-    possible. Press escape to pause. Change controls in options\n\n<size=20>Nodes</size>\n\n\tBasic
-    Nodes are green, Aqueduct Nodes are blue\n\n\tClick individual nodes to select
-    them or click and drag to select multiple. Right click to \tmove, press C to \n\tconnect\n\n\tNodes
-    will lose Life over time. Connected Nodes split their Life loss. Green Virus enemies
-    will leech your \n\tLife if you let them. Move to evade \n\n\tPlace Aqueduct Nodes
-    on the resource clouds, then connect it to other Nodes to recharge their Life.
-    \n\tResource nodes can only be gathered by one Aqueduct at a time, and Aqueduct
-    Nodes can only connect to one \n\tNode at a time. Resource Nodes move around the
-    map\n\n\tBasic node can not gather resources\n\n\tIncreasing a Node's level (bottom
-    middle panel or press L) will increase its resistance to Viruses and move \n\tspeed.
-    The selected Node will receive the upgrade. \n\n\tWhen nodes receive resources,
-    they emit particles\n\n<size=20>Abilities</size>\n\n\t<b>List of Abilities</b>
-    in the bottom left with cooldowns:\n\tT: Time slowdown for 4 seconds\n\tS: Grant
-    all Nodes +10 Life\n\tV: Destroy all Viruses <b>(only usable after 1 minute)</b>\n\t10:
+  m_Text: "\n<size=24>COLONIZE</size>\n\n\tDatacenters are now protected via minigames.
+    Strengthen and automate your defenses to protect the data\n\n\tNodes: Functional
+    bits of data that can be orchestrated in such a way in which they self-sustain\n\t\n\tTry
+    to make your Nodes live as long as possible. Press escape to pause. Change controls
+    in options\n\n<size=20>Nodes</size>\n\n\tBasic Nodes are green. These nodes connect
+    together to reduce Life loss\n\n\tAqueduct Nodes are purple. They can gather Life
+    from Resource clouds and send it to other Nodes\n\n\tLeech Nodes are mostly grey
+    with green hooks. They gather Life from Viruses and send it to other Nodes\n\n\tPrefect
+    Nodes are blue. If connected with each other, they form barriers that Viruses
+    cannot pass\n\n\tClick individual nodes to select them or click and drag to select
+    multiple. Right click to \tmove, press C to \n\tconnect\n\n\tNodes will lose Life
+    over time. Connected Nodes split their Life loss. Green Virus enemies will leech
+    your \n\tLife if you let them. Move to evade \n\n\tPlace Aqueduct Nodes on the
+    resource clouds, then connect it to other Nodes to recharge their Life. \n\tResource
+    nodes can only be gathered by one Aqueduct at a time, and Aqueduct Nodes can only
+    connect to one \n\tNode at a time. Resource Nodes move around the map\n\n\tBasic
+    node can not gather resources\n\n\tIncreasing a Node's level(Default L) will increase
+    its resistance to Viruses and move \n\tspeed. The selected Node will receive the
+    upgrade. \n\n\tWhen nodes receive resources, they emit particles\n\n<size=20>Upgrades</size>\n\t\n\tUpgrade
+    Nodes with the panel on the right. \n\n\tThe left branch focuses on speed upgrades
+    while the right branch focuses on Virus resistance\n\n\tOnce you have upgraded
+    on one branch, you cannot goto the other\n\n\tWhich branch you have chosen and
+    the level can are denoted by stars on your Node\n\n<size=20>Abilities</size>\n\n\t<b>List
+    of Abilities</b> in the bottom with cooldowns:\n\tT: Time slowdown for 4 seconds\n\tS:
+    Grant all Nodes +10 Life\n\tV: Destroy all Viruses <b>(only usable after 1 minute)</b>\n\t10:
     Next resource gather grants 10x more\n\n<size=20>Known Bugs</size>\n\n\tConnections
-    do not always light up properly when resources are transferred\n\tSounds don't
-    play in the 2nd scene you've loaded...\n\tSometimes aqueduct nodes will stay blue
-    if a resource cloud has moved\n\tCan't scroll this page with a controller \n\n<size=20>New
-    Features</size>\n\r\n\t<b>Deaf support</b> :\r\n  \t\tadded sounds in the first
-    place\n  \t\tall buttons grow when hovered over and change color when pressed\n\t\tnode
-    life text red at 20\r%\n\t\tdeaf players should be able to experience this state
-    of the game the same as non-deaf players\n\t\t(more sounds, music, in the works..)\n\r\n\t<b>Controller
-    support</b> :\r\n  \t\t1 controller layout\r at the moment for xbox 360\n\r\n\t<b>Color
-    improvements</b> :\r\n\t\tMain menu button highlighting \n  \t\tChanged aqueduct
-    node sprite to be more distinguishable \n  \t\tChanged aqueduct node to higher
-    contrast color\r\n \t\tResource nodes highlight blue when gathering resources...
-    now has pulsating glow\r\n \t\tSelected nodes were instantly highlighted yellow...
-    changed to tween to a more noticeable color\n\n\t<b>Extra credt</b> :\n\t\tTritanope:
-    F4\n\t\tMonochromacy: F5"
+    do not always light up properly when resources are transferred\n\tCan't scroll
+    this page with a controller \n\tVarious Node selection/coloring bugs\n\r\n\t"
 --- !u!222 &1946559203
 CanvasRenderer:
   m_ObjectHideFlags: 0
