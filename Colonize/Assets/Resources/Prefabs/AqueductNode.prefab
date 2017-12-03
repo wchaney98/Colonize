@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 58763044357202870}
   - component: {fileID: 114044226198859880}
   - component: {fileID: 50311140697171016}
+  - component: {fileID: 114462989424261404}
   m_Layer: 0
   m_Name: AqueductNode
   m_TagString: Untagged
@@ -363,6 +364,25 @@ MonoBehaviour:
   - {fileID: 212690649779224636}
   ResourcesReceivedEffect: {fileID: 1314402709159162, guid: 5e1d27ca17c47bb4091a80ecc4608b22,
     type: 2}
+--- !u!114 &114462989424261404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829983339904806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55373536dca6f884db29d9ac6708d7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterOutline: {fileID: 0}
+  color: 1
+  vOutlineType: 3
+  eraseRenderer: 0
+  ShowOutline: 1
+  OutlineAllChild: 1
+  originalLayer: 0
+  originalMaterial: {fileID: 0}
 --- !u!212 &212178798995972852
 SpriteRenderer:
   m_ObjectHideFlags: 1

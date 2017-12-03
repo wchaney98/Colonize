@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,21 @@ public class Persistence : SingletonBehavior<Persistence>
 
     public Dictionary<string, string> Controls;
     public Dictionary<string, string> ControllerControls;
+
+    // High roller
+    public int LifeGathered = 0;
+
+    // Medicine
+    public int LifeLeeched = 0;
+
+    // Daily fix
+    public int RoundsPlayed = 0;
+
+    // Most wanted
+    public bool NodeSurvivedHundredSeconds = false;
+
+    // Wall
+    public int VirusesStopped = 0;
 
     public Vector2 GetMainStickData()
     {
@@ -46,6 +62,23 @@ public class Persistence : SingletonBehavior<Persistence>
     private void Update()
     {
         CheckControllerConnection();
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            // High roller
+            LifeGathered++;
+
+            // Medicine
+            LifeLeeched++;
+
+            // Daily fix
+            RoundsPlayed++;
+
+            // Most wanted
+            NodeSurvivedHundredSeconds = !NodeSurvivedHundredSeconds;
+
+            // Wall
+            VirusesStopped++;
+        }
     }
 
     public bool CheckControllerConnection()

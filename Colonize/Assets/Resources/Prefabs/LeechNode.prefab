@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 58984814748305276}
   - component: {fileID: 50357198944820518}
   - component: {fileID: 114418512147061924}
+  - component: {fileID: 114275490400334652}
   m_Layer: 0
   m_Name: LeechNode
   m_TagString: Untagged
@@ -342,6 +343,25 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
+--- !u!114 &114275490400334652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232797622252278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55373536dca6f884db29d9ac6708d7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterOutline: {fileID: 0}
+  color: 1
+  vOutlineType: 3
+  eraseRenderer: 0
+  ShowOutline: 1
+  OutlineAllChild: 1
+  originalLayer: 0
+  originalMaterial: {fileID: 0}
 --- !u!114 &114418512147061924
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject AqueductNodePrefab;
     public GameObject VirusPrefab;
     public GameObject HelpPanel;
+    public GameObject MovementEffectPrefab;
 
     public GameObject ControllerCursor;
     private GameObject controllerCursor;
@@ -197,6 +198,10 @@ public class GameManager : MonoBehaviour
                 {
                     node.MoveTo(Persistence.Instance.ControllerIsConnected ? controllerCursor.transform.position : Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 }
+                GameObject temp = Instantiate(MovementEffectPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                Vector3 pos = temp.transform.position;
+                pos.z = -5;
+                temp.transform.position = pos;
             }
         }
 
@@ -271,6 +276,15 @@ public class GameManager : MonoBehaviour
                 temp.SetWidth(1f);
                 temp.Draw();
             }
+        }
+
+        if (PlayerState == PlayerState.CONNECTING)
+        {
+            foreach (INode node in SelectedNodes)
+            {
+                VectorLine temp = VectorLine.SetLine(Color.white, Time.deltaTime, Camera.main.ScreenToWorldPoint(Input.mousePosition), node.Position);
+            }
+
         }
 
         NodeManager.Nodes.RemoveAll(x => x.Dead);

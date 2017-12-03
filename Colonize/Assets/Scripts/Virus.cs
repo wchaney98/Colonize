@@ -13,6 +13,7 @@ public enum VirusState
 public class Virus : MonoBehaviour
 {
     public bool StuckThisFrame = false;
+    private bool thisVirusLoggedStuck = false;
 
     private GameObject Cam;
 
@@ -44,6 +45,11 @@ public class Virus : MonoBehaviour
     {
         if (StuckThisFrame)
         {
+            if (!thisVirusLoggedStuck)
+            {
+                Persistence.Instance.VirusesStopped++;
+                thisVirusLoggedStuck = true;
+            }
             StopAllCoroutines();
             choosingTimer = 0f;
             StuckThisFrame = false;

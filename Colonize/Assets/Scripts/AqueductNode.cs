@@ -79,6 +79,7 @@ public class AqueductNode : Node
         foreach (INode node in ConnectedNodes)
         {
             node.ReceiveResources(amount, this, this);
+            Persistence.Instance.LifeGathered += amount;
         }
     }
 

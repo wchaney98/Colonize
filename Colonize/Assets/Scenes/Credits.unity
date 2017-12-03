@@ -502,10 +502,9 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "<size=30>CREDITS:</size>\n\nMost art assets and fonts from: \nhttps://kenney.nl/assets\n\nVectrosity
-    for line rendering: \nhttps://assetstore.unity.com/packages/tools/particles-effects/vectrosity-82\n\n<size=30>Navigation
-    improvements:</size>\n1. Show magnitude of next level upgrade\n2. Color code/size
-    to show impact of upgrade\n3. stars to show what level and which upgrades nodes
-    have"
+    for line rendering: \nhttps://assetstore.unity.com/packages/tools/particles-effects/vectrosity-82\n\n<size=30>Quests:</size>\n1.
+    quests grabbed from 5 possible quests\n2. completing one adds another\n3. Press
+    \"-\" minus key to add +1 to all quest objectives\n4. quest completion \"flare\""
 --- !u!222 &1079386601
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Node : MonoBehaviour, INode
@@ -36,6 +37,8 @@ public abstract class Node : MonoBehaviour, INode
     private bool lowHealthSoundPlayed = false;
     protected bool collidingWithVirus = false;
     private bool mouseOver = false;
+
+    private float timeAlive = 0f;
 
     public void ShowStar()
     {
@@ -106,11 +109,16 @@ public abstract class Node : MonoBehaviour, INode
     protected void OnMouseOver()
     {
         mouseOver = true;
+        if (NodeMenu.GameManager.PlayerState == PlayerState.CONNECTING && !NodeMenu.GameManager.SelectedNodes.Any(x => this == x))
+        {
+            GetComponent<Outline>().ShowHide_Outline(true);
+        }
     }
 
     protected void OnMouseExit()
     {
         mouseOver = false;
+        GetComponent<Outline>().ShowHide_Outline(false);
     }
 
     public abstract void ConnectTo(INode otherNode);
@@ -194,10 +202,23 @@ public abstract class Node : MonoBehaviour, INode
         DecaySpeed = 1;
         VirusResistance = 0;
         NodeMenu = Resources.FindObjectsOfTypeAll<NodeMenu>()[0];
+
+        GetComponent<Outline>().ShowHide_Outline(false);
     }
 
     protected virtual void Update()
     {
+        if (!mouseOver)
+        {
+            GetComponent<Outline>().ShowHide_Outline(false);
+        }
+
+        timeAlive += Time.deltaTime;
+        if (timeAlive >= 100f)
+        {
+            Persistence.Instance.NodeSurvivedHundredSeconds = true;
+        }
+
         textMesh.text = Mathf.Floor((((float)Life / MaxLife) * 100)).ToString();
         DecayCounter += Time.deltaTime;
         if (DecayCounter >= SecPerDecay * (ConnectedNodes.Count + 1))

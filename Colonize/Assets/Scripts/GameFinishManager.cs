@@ -10,8 +10,10 @@ public class GameFinishManager : MonoBehaviour
     public GameObject textObject;
 
     private Text textComponent;
-	void Start () 
-	{
+    void Start () 
+    {
+        Persistence.Instance.RoundsPlayed++;
+
         Time.timeScale = 1f;
         textComponent = textObject.GetComponent<Text>();
 

@@ -23,7 +23,8 @@ public enum SoundFile
     ResourcesMoved,
     UsedPowerUp,
     VirusDied,
-    something
+    something,
+    BGM1
 }
 # endregion
 
@@ -70,6 +71,7 @@ public class SoundManager : SingletonBehavior<SoundManager>
         {
             Debug.Log("Creating SoundEffectSource");
             SoundEffectSource = new GameObject("SoundEffectSource", typeof(AudioSource)).GetComponent<AudioSource>();
+            SoundEffectSource.volume = 1.3f;
             DontDestroyOnLoad(SoundEffectSource.gameObject);
         }
 
@@ -78,12 +80,12 @@ public class SoundManager : SingletonBehavior<SoundManager>
         {
             Debug.Log("Creating BGMSource");
             BGMSource = new GameObject("BGMSource", typeof(AudioSource)).GetComponent<AudioSource>();
-            BGMSource.volume = .5f;
+            BGMSource.volume = .1f;
             BGMSource.loop = true;
             DontDestroyOnLoad(BGMSource.gameObject);
         }
 
-        //ChangeBGM(Resources.Load<AudioClip>("Sound/Music/DancingMidgets"));
+        ChangeBGM(SoundFile.BGM1);
     }
 
     /// <summary>

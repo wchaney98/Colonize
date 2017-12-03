@@ -71,6 +71,8 @@ public class LeechNode : Node
         foreach (INode node in ConnectedNodes)
         {
             node.ReceiveResources(amount, this, this);
+            Persistence.Instance.LifeLeeched += amount;
+            Persistence.Instance.LifeGathered += amount;
         }
     }
 
